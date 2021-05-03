@@ -1,7 +1,6 @@
 {
   "name": "graphql-react-event-booking",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -13,8 +12,18 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tommy509/mocks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tommy509/mocks/issues"
+  },
+  "homepage": "https://github.com/tommy509/mocks#readme",
+  "description": ""
 }
