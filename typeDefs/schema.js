@@ -38,7 +38,7 @@ module.exports = buildSchema(`
         startTime:String,
         endTime:String,
         updateTime:String,
-        location:Location,
+        location:lastSessionLocation,
         upLink:Int
         downLink:Int
         imei:Float
@@ -54,7 +54,8 @@ module.exports = buildSchema(`
         name: String
     }
 
-    type Location{
+    type lastSessionLocation{
+    id: ID!
     mcc: Int,
     mnc: Int,
     lac: Int,
