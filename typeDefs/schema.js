@@ -6,6 +6,7 @@ module.exports = buildSchema(`
     type Query{
         simList: [ simDetails ],
         simDetails(imsi: ID!): simDetails,
+        simLastSessionDetails(imsi: Float!): simLastSessionDetails,
         simChangeStatus(simChangeId: String!): simChangeStatus
     }
 
@@ -31,6 +32,19 @@ module.exports = buildSchema(`
         businessUnit: String
     }
 
+
+    type simLastSessionDetails{
+        imsi:Float
+        startTime:String,
+        endTime:String,
+        updateTime:String,
+        location:Location,
+        upLink:Int
+        downLink:Int
+        imei:Float
+    
+    }
+
     type label{
         name: String
     }
@@ -38,5 +52,12 @@ module.exports = buildSchema(`
     type Persona{
         id: ID!,
         name: String
+    }
+
+    type Location{
+    mcc: Int,
+    mnc: Int,
+    lac: Int,
+    cell: Int
     }
 `);
