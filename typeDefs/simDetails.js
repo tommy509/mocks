@@ -5,7 +5,7 @@ module.exports = buildSchema(`
 
     type Query{
         simList: [ simDetails ],
-        simDetails(imsi: Int!): simDetails
+        simDetails(imsi: Int!): simDetails,
     }
 
     type simDetails{
