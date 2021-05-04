@@ -4,12 +4,13 @@ var { buildSchema } = require('graphql');
  
 // Construct a schema, using GraphQL schema language
 var   testSchema   = require('./typeDefs');
+var schema = require('./resolvers/schema')
 var models = require('./data')
 var simDetailResolvers  = require('./resolvers');
  
  var app = express();
 app.use('/graphql', graphqlHTTP({
-  schema: testSchema,
+  schema: schema,
   rootValue: simDetailResolvers,
   graphiql: true,
 }));
