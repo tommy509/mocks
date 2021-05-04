@@ -6,8 +6,9 @@ var resolvers = {
        // simList: (parent, args, {models}) => simDetails,
     simList: () => { console.log("Executing simdetails"); return models.simDetail; },
 
-    simDetails: (imsi) => {
-        const simDetail = models.simDetails.filter(simDetail => simDetail.imsi === imsi);
+    simDetails: (args) => {
+        console.log(args)
+        const simDetail = models.simDetail.find(simDetail => simDetail.imsi === args.imsi);
         return simDetail;
     },
 

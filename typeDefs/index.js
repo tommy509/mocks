@@ -1,10 +1,4 @@
-const simChangeStatus = require('./simChangeStatus');
-const simDetails = require('./simDetails');
+const simDetails = require('./schema');
 //var testSchema = require('./testSchema');
 
-var schema = {
-    simDetails: simDetails,
-    simChangeStatus: simChangeStatus
-}
-
-module.exports =  simChangeStatus;
+module.exports =  simDetails;
