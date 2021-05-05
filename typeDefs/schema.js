@@ -7,9 +7,19 @@ module.exports = buildSchema(`
         simList: [ simDetails ],
         simDetails(imsi: ID!): simDetails,
         simLastSessionDetails(imsi: Float!): simLastSessionDetails,
-        simChangeStatus(simChangeId: String!): simChangeStatus
+        simChangeStatus(simChangeId: String!): simChangeStatus,
+        simActivate(imsi: Float!): simActivate
     }
 
+    type simActivate{
+        id: String!,
+        simId: String,
+        requestedTime: String,
+        changeType: String,
+        state: String,
+        completionTime: String,
+        creationTime: String, 
+      }
     type simChangeStatus{
       id: String!,
       simId: String,

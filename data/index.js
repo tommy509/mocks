@@ -4,6 +4,7 @@ const simChangeStatus = require('./simChangeStatus');
 const simLastSessionDetails = require('./simLastSessionDetails');
 const simFinishSleep = require('./simFinishSleepData');
 const simFinishTests = require('./simFinishTestsData');
+const simActivate = require('./simActivateData');
 const models = {
 
     simDetail: simDetails,
@@ -11,7 +12,8 @@ const models = {
     label: labels,
     simLastSessionDetails: simLastSessionDetails,
     simFinishSleep,
-    simFinishTests
+    simFinishTests,
+    simActivate,
 
 };
 module.exports = models;
