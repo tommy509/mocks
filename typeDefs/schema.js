@@ -14,7 +14,8 @@ module.exports = buildSchema(`
     type Mutation {
         simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
-         simActivate(input: simActivateInput): simActivate
+         simActivate(input: simActivateInput): simActivate,
+         simClearLabels(imsi: ID!): simDetails,
     }
 
     input simActivateInput{

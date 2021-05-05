@@ -4,6 +4,7 @@ const simLastSessionDetailsResolvers = require('./simLastSessionDetails');
 const simFinishSleepResolvers = require('./simFinishSleep');
 const simFinishTestsResolvers = require('./simFinishTests');
 const simActivateResolvers = require('./simActivate');
+const simClearLabelsResolvers = require('./simClearLabels');
 module.exports = {
 
         simDetails: simDetailResolvers.simDetails,
@@ -13,5 +14,6 @@ module.exports = {
         simFinishSleep: simFinishSleepResolvers.simFinishSleep,
         simFinishTests: simFinishTestsResolvers.simFinishTests,
         simActivate: simActivateResolvers.simActivate,
+        simClearLabels: simClearLabelsResolvers.simClearLabels,
 
 }
