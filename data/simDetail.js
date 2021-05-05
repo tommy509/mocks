@@ -4,7 +4,7 @@ let simList = [
         msisdn: null,
         iccid: "123456789012",
         imei: null,
-        labels: [1,2],
+        labels: [],
         status: "Pending",
         customer: 1,
         businessUnit: null
@@ -14,7 +14,7 @@ let simList = [
         msisdn: null,
         iccid: "210987654321",
         imei: null,
-        labels: [3,4],
+        labels: [],
         status: "Live",
         customer: 2,
         businessUnit: null

@@ -16,6 +16,25 @@ module.exports = buildSchema(`
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
          simActivate(input: simActivateInput): simActivate,
          simClearLabels(imsi: ID!): simDetails,
+         simAddLabels(input:addLabelInput): simAddLabelDetails,
+    }
+
+
+
+    input addLabelInput{
+        imsi: ID!,
+        labels: [String],
+    }
+
+    type simAddLabelDetails{
+        imsi: ID!,
+        msisdn: String,
+        iccid: String,
+        imei: String,
+        labels: [String],
+        status: String,
+        customer: Customer,
+        businessUnit: String
     }
 
     input simActivateInput{
@@ -88,6 +107,8 @@ module.exports = buildSchema(`
     type label{
         name: String
     }
+
+  
 
     type Customer{
         id: ID!,
