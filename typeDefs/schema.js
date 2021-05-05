@@ -8,12 +8,25 @@ module.exports = buildSchema(`
         simDetails(imsi: ID!): simDetails,
         simLastSessionDetails(imsi: Float!): simLastSessionDetails,
         simChangeStatus(simChangeId: String!): simChangeStatus,
-        simActivate(imsi: Float!): simActivate
+       
     }
 
     type Mutation {
         simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
+         simActivate(input: simActivateInput): simActivate
+    }
+
+    input simActivateInput{
+        imsi:Float!,
+        state:String,
+        roamingProfileId:String,
+        serviceProfileId:String,
+        networkSettings:networkSettings,
+    }
+    input networkSettings{
+        apnName:String,
+        allocationType:String
     }
 
     type simFinish {
@@ -41,7 +54,7 @@ module.exports = buildSchema(`
         id: String!,
         simId: String,
         requestedTime: String,
-        changeType: String,
+        changeType: [String],
         state: String,
         completionTime: String,
         creationTime: String, 

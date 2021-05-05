@@ -6,7 +6,8 @@ var resolvers = {
 
     simActivate: (args) => {
         console.log(args)
-        const simActivation = models.simActivate.find(simDetail => simActivate.imsi === args.imsi);
+        const simActivation = models.simActivate.find(simActivation => simActivation.imsi === args.input.imsi);
+        simActivation.changeType=["Activated"];
         return simActivation;
     }
  
