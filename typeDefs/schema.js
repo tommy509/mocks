@@ -11,15 +11,22 @@ module.exports = buildSchema(`
         simActivate(imsi: Float!): simActivate
     }
 
-    type simActivate{
-        id: String!,
+    type Mutation {
+        simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
+        simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
+    }
+
+    type simFinish {
+        imsi: Float,
+        id: String,
         simId: String,
         requestedTime: String,
-        changeType: String,
-        state: String,
         completionTime: String,
-        creationTime: String, 
-      }
+        creationTime: String,
+        changeType: [String],
+        state: String
+    }
+
     type simChangeStatus{
       id: String!,
       simId: String,
@@ -30,6 +37,15 @@ module.exports = buildSchema(`
       creationTime: String, 
     }
 
+    type simActivate{
+        id: String!,
+        simId: String,
+        requestedTime: String,
+        changeType: String,
+        state: String,
+        completionTime: String,
+        creationTime: String, 
+      }
 
     type simDetails{
         imsi: ID!,
@@ -71,6 +87,4 @@ module.exports = buildSchema(`
     lac: Int,
     cell: Int
     }
-
-    type Mutation {}
 `);
