@@ -8,6 +8,8 @@ module.exports = buildSchema(`
         simDetails(imsi: ID!): simDetails,
         simLastSessionDetails(imsi: Float!): simLastSessionDetails,
         simChangeStatus(simChangeId: String!): simChangeStatus
+        simFinishSleep(imsi: ID!, serviceProfileId: String): simFinishSleep,
+        simFinishTests(imsi: ID!, serviceProfileId: String, state: String): simFinishTests
     }
 
     type simChangeStatus{
@@ -55,9 +57,27 @@ module.exports = buildSchema(`
     }
 
     type lastSessionLocation{
-    mcc: Int,
-    mnc: Int,
-    lac: Int,
-    cell: Int
+        mcc: Int,
+        mnc: Int,
+        lac: Int,
+        cell: Int
+    }
+
+    type simFinishSleep{
+        id: String,
+        simId: String,
+        requestedTime: String,
+        completionTime: String,
+        creationTime: String,
+        state: String
+    }
+
+    type simFinishTests{
+        id: String,
+        simId: String,
+        requestedTime: String,
+        completionTime: String,
+        creationTime: String,
+        state: String
     }
 `);

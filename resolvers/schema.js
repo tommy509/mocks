@@ -3,8 +3,6 @@ const simLastSessionDetails = require('../data/simLastSessionDetails')
 const simLastSessionLocations = require('../data/simLastSessionLocations')
 const simChangeStatusType =  require('../typeDefs/simChangeStatusType')
 const simChangeStatus = require('../data/simChangeStatus')
-const simFinishSleep = require('./simFinishSleepResolvers');
-const simFinishTests = require('./simFinishTestsResolvers');
 
 const {
     GraphQLSchema,
@@ -37,8 +35,6 @@ const RootQueryType = new GraphQLObjectType({
         },
         resolve: (parent, args) =>  simChangeStatus.find( simChangeStatus =>  simChangeStatus.id === args.simChangeId)
       },
-      simFinishSleep,
-      simFinishTests,
     })
   })
 

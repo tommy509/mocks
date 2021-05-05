@@ -1,6 +1,7 @@
 
-let simFinishTestsData = [
+const simFinishTests = [
     {
+        imsi: 250010000009451,
         id: "CMILApkYumQzTqDeM2Ziih3C2zU",
         simId: "CMILA63iirwgjLXhACoM0jfn9ZE",
         requestedTime: null,
@@ -11,4 +12,4 @@ let simFinishTestsData = [
     }
 ];
 
-module.exports = simFinishTestsData;
+module.exports = simFinishTests;
