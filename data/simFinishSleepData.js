@@ -7,8 +7,8 @@ const simFinishSleep = [
         requestedTime: null,
         completionTime: "null",
         creationTime: "2019-08-30T10:28:25.987",
-        changeType: ["LiveStarted"],
-        state: "Pending"
+        changeType: [], // LiveStarted, SleepStarted
+        state: "Pending" // Pending, InProgress, Completed, Failed, Cancelled
     }
 ];
 
