@@ -7,8 +7,8 @@ const simFinishTests = [
         requestedTime: null,
         completionTime: "null",
         creationTime: "2019-12-06T15:12:03.996+01:00",
-        changeType: ["LiveStarted"],
-        state: "Pending"
+        changeType: [], // LiveStarted, SleepStarted
+        state: "Pending" // Pending, InProgress, Completed, Failed, Cancelled
     }
 ];
 
