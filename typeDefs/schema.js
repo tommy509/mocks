@@ -55,7 +55,6 @@ module.exports = buildSchema(`
     }
 
     type lastSessionLocation{
-    id: ID!
     mcc: Int,
     mnc: Int,
     lac: Int,
