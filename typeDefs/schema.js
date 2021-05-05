@@ -10,6 +10,22 @@ module.exports = buildSchema(`
         simChangeStatus(simChangeId: String!): simChangeStatus
     }
 
+    type Mutation {
+        simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
+        simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
+    }
+
+    type simFinish {
+        imsi: Float,
+        id: String,
+        simId: String,
+        requestedTime: String,
+        completionTime: String,
+        creationTime: String,
+        changeType: [String],
+        state: String
+    }
+
     type simChangeStatus{
       id: String!,
       simId: String,
@@ -61,6 +77,4 @@ module.exports = buildSchema(`
     lac: Int,
     cell: Int
     }
-
-    type Mutation {}
 `);
