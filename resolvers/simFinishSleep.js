@@ -1,13 +1,12 @@
-var models = require("../data");
+var { simFinishSleep } = require("../data");
 
 
 var resolvers = {
 
     simFinishSleep: (args) => {
-        console.log("simFinishSleep List", models.simFinishSleep)        
+        console.log("simFinishSleep List", simFinishSleep)
         console.log(args)
-        const simFinishSleep = simFinishSleep.find(i => i.imsi = args.imsi);
-        return simFinishSleep;
+        return simFinishSleep.find(i => i.imsi = args.imsi);
     }
 
 }
