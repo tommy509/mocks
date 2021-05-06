@@ -6,11 +6,14 @@ const simFinishTestsResolvers = require('./simFinishTests');
 const simActivateResolvers = require('./simActivate');
 const simClearLabelsResolvers = require('./simClearLabels');
 const simAddLabelsResolvers = require('./simAddLabels');
+const simChangeListResolvers = require('./simChangeList')
+
 module.exports = {
 
         simDetails: simDetailResolvers.simDetails,
         simList: simDetailResolvers.simList,
         simChangeStatus: simChangeStatusResolvers.simChangeStatus,
+        simChangeList: simChangeListResolvers.simChangeList,
         simLastSessionDetails: simLastSessionDetailsResolvers.simLastSessionDetails,
         simFinishSleep: simFinishSleepResolvers.simFinishSleep,
         simFinishTests: simFinishTestsResolvers.simFinishTests,

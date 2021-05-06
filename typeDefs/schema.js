@@ -8,7 +8,7 @@ module.exports = buildSchema(`
         simDetails(imsi: ID!): simDetails,
         simLastSessionDetails(imsi: Float!): simLastSessionDetails,
         simChangeStatus(simChangeId: String!): simChangeStatus,
-       
+        simChangeList(imsi: Float!, first: Int): [ simChangeStatus ],
     }
 
     type Mutation {
@@ -18,8 +18,6 @@ module.exports = buildSchema(`
          simClearLabels(imsi: ID!): simDetails,
          simAddLabels(input:addLabelInput): simAddLabelDetails,
     }
-
-
 
     input addLabelInput{
         imsi: ID!,
@@ -61,6 +59,7 @@ module.exports = buildSchema(`
     }
 
     type simChangeStatus{
+      imsi: Float!,
       id: String!,
       simId: String,
       requestedTime: String,

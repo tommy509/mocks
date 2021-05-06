@@ -6,7 +6,6 @@ var resolvers = {
         const simChangeStatus = models.simChangeStatus.find( simChange =>  simChange.id === args.simChangeId);
         return simChangeStatus;
     }
-
 }
 
 module.exports = resolvers;
