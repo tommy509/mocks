@@ -8,7 +8,7 @@ var resolvers = {
         console.log("imsi", imsi, "serviceProfileId", serviceProfileId, "stage", stage);
 
         const simData = simFinishTests.find(({ imsi }) => imsi === imsi);
-        return { ...simData, changeType: [...simData.changeType, stage + 'Started'] }
+        return { ...simData, changeType: [stage + 'Started'] }
     }
 
 }

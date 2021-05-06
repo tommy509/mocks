@@ -8,7 +8,7 @@ var resolvers = {
         console.log("imsi", imsi, serviceProfileId, "serviceProfileId");
 
         const simData = simFinishSleep.find(({ imsi }) => imsi === imsi);
-        return { ...simData, changeType: [...simData.changeType, 'LiveStarted'] }
+        return { ...simData, changeType: ['LiveStarted'] }
     }
 
 }
