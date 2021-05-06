@@ -6,7 +6,8 @@ const simFinishTestsResolvers = require('./simFinishTests');
 const simActivateResolvers = require('./simActivate');
 const simClearLabelsResolvers = require('./simClearLabels');
 const simAddLabelsResolvers = require('./simAddLabels');
-const simChangeListResolvers = require('./simChangeList')
+const simChangeListResolvers = require('./simChangeList');
+const simMoveToInventoryResolvers = require('./simMoveToInventory');
 
 module.exports = {
 
@@ -20,5 +21,6 @@ module.exports = {
         simActivate: simActivateResolvers.simActivate,
         simClearLabels: simClearLabelsResolvers.simClearLabels,
         simAddLabels: simAddLabelsResolvers.simAddLabels,
+        simMoveToInventory: simMoveToInventoryResolvers.simMoveToInventory,
 
 }

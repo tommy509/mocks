@@ -5,7 +5,7 @@ let simList = [
         iccid: "123456789012",
         imei: null,
         labels: [],
-        status: "Pending",
+        status: ["Pending"],
         customer: 1,
         businessUnit: null
     },
@@ -15,7 +15,7 @@ let simList = [
         iccid: "210987654321",
         imei: null,
         labels: [],
-        status: "Live",
+        status: ["Live"],
         customer: 2,
         businessUnit: null
     }
