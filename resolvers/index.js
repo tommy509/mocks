@@ -8,6 +8,7 @@ const simClearLabelsResolvers = require('./simClearLabels');
 const simAddLabelsResolvers = require('./simAddLabels');
 const simChangeListResolvers = require('./simChangeList');
 const simMoveToInventoryResolvers = require('./simMoveToInventory');
+const simInstallationAddressResolvers = require("./simInstallationAddress")
 
 module.exports = {
 
@@ -22,5 +23,5 @@ module.exports = {
         simClearLabels: simClearLabelsResolvers.simClearLabels,
         simAddLabels: simAddLabelsResolvers.simAddLabels,
         simMoveToInventory: simMoveToInventoryResolvers.simMoveToInventory,
-
+        simInstallationAddress: simInstallationAddressResolvers.simInstallationAddress,
 }

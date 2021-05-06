@@ -18,6 +18,7 @@ module.exports = buildSchema(`
          simClearLabels(imsi: ID!): simDetails,
          simAddLabels(input:addLabelInput): simAddLabelDetails,
          simMoveToInventory(imsi: ID!): simDetails,
+         simInstallationAddress(imsi: ID!, addressLines: [String!]!, postalCode: String!, city: String!, adminUnits: String, countryIso: String!,): simInstallationAddress,
     }
 
     input addLabelInput{
@@ -102,6 +103,15 @@ module.exports = buildSchema(`
         downLink:Int
         imei:Float
     
+    }
+
+    type simInstallationAddress {
+        imsi: ID!,
+        addressLines: [String!]!,
+        postalCode: String!,
+        city: String!,
+        adminUnits: String,
+        countryIso: String!,
     }
 
     type label{
