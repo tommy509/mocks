@@ -16,6 +16,7 @@ module.exports = buildSchema(`
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
         simActivate(input: simActivateInput): simActivate,
         simClearLabels(imsi: ID!): simDetails,
+        simRemoveLabel(imsi: ID!, label: [String!]!): simDetails,
         simAddLabels(input:addLabelInput): simAddLabelDetails,
         simMoveToInventory(imsi: ID!): simDetails,
         simInstallationAddress(imsi: ID!, addressLines: [String!]!, postalCode: String!, city: String!, adminUnits: String, countryIso: String!,): simInstallationAddress,
