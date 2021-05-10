@@ -9,6 +9,7 @@ module.exports = buildSchema(`
         simLastSessionDetails(imsi: Float!): simLastSessionDetails,
         simChangeStatus(simChangeId: String!): simChangeStatus,
         simChangeList(imsi: ID!, first: Int): [ simChangeStatus ],
+        smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
     }
 
     type Mutation {
@@ -140,5 +141,56 @@ module.exports = buildSchema(`
         message: String!,
         recipientSim: String,
         messageEncoding: String,
+    }
+
+    input PagingInput{
+        before: String,
+        after: String,
+        first: Int,
+        last: Int,
+        offset: Int,
+        limit: Int,
+    }
+
+    input SmsListInput {
+        pageInfo: PagingInput,
+        imsi: ID!,
+        fromDate: String,
+        toDate: String,
+        smsIds: [String],
+    },
+    
+
+    type PageInfo {
+        total: Float!,
+        totalRelation: String!,
+        size: Int!,
+        hasNextPage: Boolean!,
+        hasPreviousPage: Boolean!,
+        startCursor: String,
+        startPosition: Float,
+        endCursor: String,
+        endPosition: Float,
+    }
+    
+    type SmsesEdge {
+        node: SmsDetails!,
+        cursor: String!,
+        cursorPosition: Float!,
+    }
+    
+    type SmsDetails {
+        id: String,
+        messageText: String,
+        sentTo: String,
+        sentFrom: String,
+        msgType: String,
+        dateSent: String,
+        dataReceived: String,
+    }
+
+    type SmsListOutput {
+        pageInfo: PageInfo!,
+        edges: [SmsesEdge!]!,
     }
 `);

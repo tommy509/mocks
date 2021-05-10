@@ -5,8 +5,9 @@ const simLastSessionDetails = require('./simLastSessionDetails');
 const simFinishSleep = require('./simFinishSleepData');
 const simFinishTests = require('./simFinishTestsData');
 const simActivate = require('./simActivateData');
-const simInstallationAddress = require('./simInstallationAddress')
-const smsSend = require('./smsSend')
+const simInstallationAddress = require('./simInstallationAddress');
+const smsSend = require('./smsSend');
+const smsList = require('./smsList');
 
 const models = {
 
@@ -19,6 +20,7 @@ const models = {
     simActivate,
     simInstallationAddress,
     smsSend,
+    smsList,
 
 };
 module.exports = models;

@@ -11,6 +11,7 @@ const simChangeListResolvers = require('./simChangeList');
 const simMoveToInventoryResolvers = require('./simMoveToInventory');
 const simInstallationAddressResolvers = require("./simInstallationAddress")
 const smsSendResolvers = require("./smsSend")
+const smsListResolvers = require("./smsList")
 
 module.exports = {
 
@@ -28,4 +29,5 @@ module.exports = {
         simMoveToInventory: simMoveToInventoryResolvers.simMoveToInventory,
         simInstallationAddress: simInstallationAddressResolvers.simInstallationAddress,
         smsSend: smsSendResolvers.smsSend,
+        smsList: smsListResolvers.smsList,
 }
