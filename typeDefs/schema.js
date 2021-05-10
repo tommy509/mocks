@@ -14,11 +14,12 @@ module.exports = buildSchema(`
     type Mutation {
         simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
-         simActivate(input: simActivateInput): simActivate,
-         simClearLabels(imsi: ID!): simDetails,
-         simAddLabels(input:addLabelInput): simAddLabelDetails,
-         simMoveToInventory(imsi: ID!): simDetails,
-         simInstallationAddress(imsi: ID!, addressLines: [String!]!, postalCode: String!, city: String!, adminUnits: String, countryIso: String!,): simInstallationAddress,
+        simActivate(input: simActivateInput): simActivate,
+        simClearLabels(imsi: ID!): simDetails,
+        simAddLabels(input:addLabelInput): simAddLabelDetails,
+        simMoveToInventory(imsi: ID!): simDetails,
+        simInstallationAddress(imsi: ID!, addressLines: [String!]!, postalCode: String!, city: String!, adminUnits: String, countryIso: String!,): simInstallationAddress,
+        smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
     }
 
     input addLabelInput{
@@ -61,14 +62,14 @@ module.exports = buildSchema(`
     }
 
     type simChangeStatus{
-      imsi: ID!,
-      id: String!,
-      simId: String,
-      requestedTime: String,
-      changeType: String,
-      state: String,
-      completionTime: String,
-      creationTime: String, 
+        imsi: ID!,
+        id: String!,
+        simId: String,
+        requestedTime: String,
+        changeType: String,
+        state: String,
+        completionTime: String,
+        creationTime: String, 
     }
 
     type simActivate{
@@ -126,10 +127,17 @@ module.exports = buildSchema(`
     }
 
     type lastSessionLocation{
-    id: ID!
-    mcc: Int,
-    mnc: Int,
-    lac: Int,
-    cell: Int
+        id: ID!
+        mcc: Int,
+        mnc: Int,
+        lac: Int,
+        cell: Int
+    }
+
+    type SmsSendOutput{
+        id: ID!,
+        message: String!,
+        recipientSim: String,
+        messageEncoding: String,
     }
 `);
