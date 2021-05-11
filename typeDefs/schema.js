@@ -26,7 +26,7 @@ module.exports = buildSchema(`
 
     input addLabelInput{
         imsi: ID!,
-        labels: [String],
+        label: String,
     }
 
     type simAddLabelDetails{
