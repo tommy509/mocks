@@ -20,7 +20,7 @@ module.exports = buildSchema(`
         simActivate(input: simActivateInput): simActivate,
         simClearLabels(imsi: ID!): simDetails,
         simRemoveCaption(imsi: ID!): simAddLabelDetails,
-        simRemoveLabel(imsi: ID!, label: [String!]!): simAddLabelDetails,
+        simRemoveLabel(imsi: ID!, label: [String!]!): simDetails,
         simAddLabels(input:addLabelInput): simAddLabelDetails,
         simAssignName(input:addCaptionInput): simAddLabelDetails,
         simMoveToInventory(imsi: ID!):simAddLabelDetails,
@@ -98,7 +98,7 @@ module.exports = buildSchema(`
         msisdn: String,
         iccid: String,
         imei: String,
-        labels: [label],
+        labels: [String],
         status: [String],
         customer: Customer,
         businessUnit: String
