@@ -10,7 +10,7 @@ module.exports = buildSchema(`
         simSessionHistory(imsi: Float!, timeFrom: String, timeTo: String, first: Int): [ simSessionDetails ],
         simChangeStatus(simChangeId: String!): simChangeStatus,
         simChangeList(imsi: Float!, first: Int): [ simChangeStatus ],
-        smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
+        smsList(pageInfo: PagingInput,imsi: ID,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
         customerDetails(name: String!): customerList,
     }
 

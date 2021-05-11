@@ -20,8 +20,7 @@ const node = {
     dataReceived: "2020-02-26T00:00:00+01:00",
 };
 
-const smsList =
-{
+const smsList = {
     pageInfo,
     edges: [
         {
