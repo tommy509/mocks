@@ -6,9 +6,10 @@ module.exports = buildSchema(`
     type Query{
         simList: [ simDetails ],
         simDetails(imsi: ID!): simDetails,
-        simLastSessionDetails(imsi: Float!): simLastSessionDetails,
+        simLastSessionDetails(imsi: Float!): simSessionDetails,
+        simSessionHistory(imsi: Float!, timeFrom: String, timeTo: String, first: Int): [ simSessionDetails ],
         simChangeStatus(simChangeId: String!): simChangeStatus,
-        simChangeList(imsi: ID!, first: Int): [ simChangeStatus ],
+        simChangeList(imsi: Float!, first: Int): [ simChangeStatus ],
         smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
     }
 
@@ -64,7 +65,7 @@ module.exports = buildSchema(`
     }
 
     type simChangeStatus{
-        imsi: ID!,
+        imsi: Float!,
         id: String!,
         simId: String,
         requestedTime: String,
@@ -96,12 +97,12 @@ module.exports = buildSchema(`
     }
 
 
-    type simLastSessionDetails{
-        imsi:Float
-        startTime:String,
+    type simSessionDetails{
+        imsi:Float!
+        startTime:String!,
         endTime:String,
         updateTime:String,
-        location:lastSessionLocation,
+        location:sessionLocation,
         upLink:Int
         downLink:Int
         imei:Float
@@ -128,7 +129,7 @@ module.exports = buildSchema(`
         name: String
     }
 
-    type lastSessionLocation{
+    type sessionLocation{
         id: ID!
         mcc: Int,
         mnc: Int,

@@ -1,7 +1,7 @@
 const labels = require('./label');
 const simDetails = require('./simDetail');
 const simChangeStatus = require('./simChangeStatus');
-const simLastSessionDetails = require('./simLastSessionDetails');
+const simSessionDetails = require('./simSessionDetails');
 const simFinishSleep = require('./simFinishSleepData');
 const simFinishTests = require('./simFinishTestsData');
 const simActivate = require('./simActivateData');
@@ -14,7 +14,7 @@ const models = {
     simDetail: simDetails,
     simChangeStatus: simChangeStatus,
     label: labels,
-    simLastSessionDetails: simLastSessionDetails,
+    simSessionDetails: simSessionDetails,
     simFinishSleep,
     simFinishTests,
     simActivate,
