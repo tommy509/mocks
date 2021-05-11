@@ -17,6 +17,7 @@ var resolvers = {
         } else {
             return simChangeStatus;
         }
+        
         return simChangeList;
     }
 

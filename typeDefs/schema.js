@@ -11,6 +11,7 @@ module.exports = buildSchema(`
         simChangeStatus(simChangeId: String!): simChangeStatus,
         simChangeList(imsi: Float!, first: Int): [ simChangeStatus ],
         smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
+        customerDetails(name: String!): customerList,
     }
 
     type Mutation {
@@ -118,18 +119,20 @@ module.exports = buildSchema(`
 
     type simInstallationAddress {
         imsi: ID!,
-        addressLines: [String!]!,
-        postalCode: String!,
-        city: String!,
-        adminUnits: String,
-        countryIso: String!,
+        address: address!,
     }
 
     type label{
         name: String
     }
 
-  
+  type address {
+    addressLines: [String!]!,
+    postalCode: String!,
+    city: String!,
+    adminUnits: String,
+    countryIso: String!,
+  }
 
     type Customer{
         id: ID!,
@@ -200,5 +203,11 @@ module.exports = buildSchema(`
     type SmsListOutput {
         pageInfo: PageInfo!,
         edges: [SmsesEdge!]!,
+    }
+
+    type customerList {
+        id: ID!,
+        name: String!
+        address: address!,
     }
 `);

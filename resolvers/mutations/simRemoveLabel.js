@@ -14,7 +14,7 @@ var resolvers = {
             }
         }
 
-        simDetail.labels = simDetail.labels.filter(isLabelIn);      
+        simDetail.labels = simDetail.labels.filter(isLabelIn);
         return simDetail;
     }
  

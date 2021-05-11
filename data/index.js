@@ -8,6 +8,7 @@ const simActivate = require('./simActivateData');
 const simInstallationAddress = require('./simInstallationAddress');
 const smsSend = require('./smsSend');
 const smsList = require('./smsList');
+const customerList = require('./customerList')
 
 const models = {
 
@@ -21,6 +22,7 @@ const models = {
     simInstallationAddress,
     smsSend,
     smsList,
+    customerList,
 
 };
 module.exports = models;

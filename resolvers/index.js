@@ -14,7 +14,8 @@ const simInstallationAddressResolvers = require("./mutations/simInstallationAddr
 const smsSendResolvers = require("./mutations/smsSend")
 const smsListResolvers = require("./queries/smsList")
 const simAssignCaptionResolvers = require("./mutations/simAssignCaption")
-const simRemoveCaptionResolvers = require("./mutations/simRemoveCaption")
+const simRemoveCaptionResolvers = require("./mutations/simRemoveCaption");
+const customerDetailsResolvers = require('./queries/customerDetails');
 
 module.exports = {
 
@@ -35,5 +36,6 @@ module.exports = {
         smsSend: smsSendResolvers.smsSend,
         smsList: smsListResolvers.smsList,
         simRemoveCaption: simRemoveCaptionResolvers.simRemoveCaption,
-        simAssignName: simAssignCaptionResolvers.simAssignCaption
+        simAssignName: simAssignCaptionResolvers.simAssignCaption,
+        customerDetails: customerDetailsResolvers.customerDetails,
 }
