@@ -4,11 +4,11 @@ const models = require("../../data");
 var resolvers = {
  
 
-    simAddLabels: (args) => {
+    simAssignCaption: (args) => {
         console.log(args)
         const simDetail = models.simDetail.find(simDetail => simDetail.imsi === args.input.imsi);
-        simDetail.labels.push(args.input.label);
-        console.log(args.input.labels)
+        simDetail.name  = args.input.name;
+        console.log(args.input.name)
         return simDetail;
     }
  
