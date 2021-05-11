@@ -4,9 +4,21 @@ var models = require("../../data");
 var resolvers = {
 
     simInstallationAddress: ( args ) => {
-        console.log(models)
-        const simData = models.simInstallationAddress.find(simInstallationAddress => simInstallationAddress.imsi === args.imsi);
-        return { ...simData, addressLines: args.addressLines, postalCode: args.postalCode, city: args.city, adminUnits: args.adminUnits, countryIso: args.countryIso}
+
+        const simData = models.simInstallationAddress.find(simInstallationAddress => simInstallationAddress.imsi === args.input.imsi);
+        
+        var simInstallationAddress = {
+            imsi: simData.imsi,
+            installLocation: {
+                addressLines: args.input.installLocation.addressLines, 
+                postalCode: args.input.installLocation.postalCode, 
+                city: args.input.installLocation.city, adminUnits: 
+                args.input.installLocation.adminUnits, countryIso: 
+                args.input.installLocation.countryIso
+            }
+        };
+
+        return simInstallationAddress;
     }
 
 }

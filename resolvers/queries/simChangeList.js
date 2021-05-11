@@ -3,15 +3,11 @@ var models = require("../../data");
 
 var resolvers = {
     simChangeList: (args) => {
-        const simChangeStatus = models.simChangeStatus.filter(simChange => simChange.imsi === args.imsi);
+        const simChangeStatus = models.simChangeStatus.filter(simChange => simChange.imsi === args.input.imsi);
         var simChangeList = [];
 
-        console.log(simChangeStatus)
-        console.log(args.imsi)
-        console.log(args.first)
-
-        if (args.first !== undefined) {
-            for (let index = 0; index < args.first; index++) {
+        if (args.input.pageInfo.first !== undefined) {
+            for (let index = 0; index < args.input.pageInfo.first; index++) {
                 simChangeList.push(simChangeStatus[index])
             }
         } else {

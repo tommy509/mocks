@@ -5,10 +5,10 @@ var resolvers = {
  
 
     simRemoveLabel: (args) => {
-        const simDetail = models.simDetail.find(simDetail => simDetail.imsi === args.imsi);
+        const simDetail = models.simDetail.find(simDetail => simDetail.imsi === args.input.imsi);
 
         function isLabelIn (value) {
-            var findedLabel = args.label.find(label => label === value);
+            var findedLabel = args.input.label.find(label => label === value);
             if(findedLabel === undefined) {
                 return value;
             }

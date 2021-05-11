@@ -7,11 +7,11 @@ module.exports = buildSchema(`
         simList: [ simDetails ],
         simDetails(imsi: ID!): simDetails,
         simLastSessionDetails(imsi: Float!): simSessionDetails,
-        simSessionHistory(imsi: Float!, timeFrom: String, timeTo: String, first: Int): [ simSessionDetails ],
+        simSessionHistory(input: sessionHistoryParametersInput!): [ simSessionDetails ],
         simChangeStatus(simChangeId: String!): simChangeStatus,
-        simChangeList(imsi: Float!, first: Int): [ simChangeStatus ],
-        smsList(pageInfo: PagingInput,imsi: ID,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
-        customerDetails(name: String!): customerList,
+        simChangeList(input: simChangeListParametersInput!): [ simChangeStatus ],
+        smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
+        customerDetails(name: String!): CustomerList,
     }
 
     type Mutation {
@@ -20,21 +20,62 @@ module.exports = buildSchema(`
         simActivate(input: simActivateInput): simActivate,
         simClearLabels(imsi: ID!): simDetails,
         simRemoveCaption(imsi: ID!): simAddLabelDetails,
-        simRemoveLabel(imsi: ID!, label: [String!]!): simDetails,
-        simAddLabels(input:addLabelInput): simAddLabelDetails,
+        simRemoveLabel(input:addLabelInput): simDetails,
+        simAddLabels(input:addLabelInput): simDetails,
         simAssignName(input:addCaptionInput): simAddLabelDetails,
-        simMoveToInventory(imsi: ID!):simAddLabelDetails,
-        simInstallationAddress(imsi: ID!, addressLines: [String!]!, postalCode: String!, city: String!, adminUnits: String, countryIso: String!,): simInstallationAddress,
+        simMoveToInventory(input: simMoveToInventoryInput): simChangeStatus,
+        simInstallationAddress(input:simProfileLocationInput): simInstallationAddress,
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
+        simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
+        simRemoveRestrictions(input: simRestrictionInput!): simChangeStatus,
+    }
+
+    input simRestrictionInput{
+        imsi: ID!,
+        restrictions: [String!]!,
+    }
+
+    input sessionHistoryParametersInput{
+        imsi: ID!, 
+        timeFrame: timeFrameInput,
+        pageInfo: PagingInput
+
+    }
+
+    input simMoveToInventoryInput{
+        imsi: ID!,
+    }
+
+    input timeFrameInput{
+        timeFrom: String, 
+        timeTo: String, 
+    }
+
+    input simChangeListParametersInput{
+        pageInfo: PagingInput,
+        imsi: Float!
     }
 
     input addLabelInput{
         imsi: ID!,
-        label: String,
+        label: [String!]!,
     }
     input addCaptionInput{
         imsi: ID!,
         name: String,
+    }
+
+    input instalationLocationAdressInput {
+        addressLines: [String!]!,
+        postalCode: String!,
+        city: String!,
+        adminUnits: [String],
+        countryIso: String!,
+    }
+
+    input simProfileLocationInput {
+        imsi: ID!,
+        installLocation: instalationLocationAdressInput!,
     }
 
     type simAddLabelDetails{
@@ -73,11 +114,10 @@ module.exports = buildSchema(`
     }
 
     type simChangeStatus{
-        imsi: Float!,
         id: String!,
         simId: String,
         requestedTime: String,
-        changeType: String,
+        changeType: [String],
         state: String,
         completionTime: String,
         creationTime: String, 
@@ -106,7 +146,7 @@ module.exports = buildSchema(`
 
 
     type simSessionDetails{
-        imsi:Float!
+        imsi:ID!
         startTime:String!,
         endTime:String,
         updateTime:String,
@@ -119,18 +159,18 @@ module.exports = buildSchema(`
 
     type simInstallationAddress {
         imsi: ID!,
-        address: address!,
+        installLocation: installationLocationAddress!,
     }
 
     type label{
         name: String
     }
 
-  type address {
+  type installationLocationAddress {
     addressLines: [String!]!,
     postalCode: String!,
     city: String!,
-    adminUnits: String,
+    adminUnits: [String],
     countryIso: String!,
   }
 
@@ -205,9 +245,9 @@ module.exports = buildSchema(`
         edges: [SmsesEdge!]!,
     }
 
-    type customerList {
+    type CustomerList {
         id: ID!,
         name: String!
-        address: address!,
+        address: installationLocationAddress!,
     }
 `);

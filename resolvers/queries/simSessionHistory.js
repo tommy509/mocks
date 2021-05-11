@@ -1,45 +1,50 @@
 const handleFunctions = require('../../handleFunctions')
 
 var models = require("../../data");
+const { simSessionDetails } = require('../../data');
 
 
 var resolvers = {
 
     simSessionHistory: (args) => {
-        // var timeFrom = handleFunctions.handleDateTime(args.timeFrom);
-        // var timeTo   = handleFunctions.handleDateTime(args.timeTo); 
+        // var timeFrom = handleFunctions.handleDateTime(args.input.timeFrame.timeFrom);
+        // var timeTo   = handleFunctions.handleDateTime(args.input.timeFrame.timeTo); 
         var simSessionsHistory = [];
         var simSessions = [];
 
-        if (!args.timeFrom && !args.timeTo) {
 
-            simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.imsi);
+        if (args.input.timeFrame) {
+            if (args.input.timeFrame.timeFrom && !args.input.timeFrame.timeTo) {
 
-        } else if (args.timeFrom && !args.timeTo) {
+                simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.input.imsi &&
+                    new Date(simSessionDetails.startTime) >= new Date(args.input.timeFrame.timeFrom));
 
-            simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.imsi &&
-                new Date(simSessionDetails.startTime) >= new Date(args.timeFrom));
+            } else if (!args.input.timeFrame.timeFrom && args.input.timeFrame.timeTo) {
 
-        } else if (!args.timeFrom && args.timeTo) {
+                simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.input.imsi &&
+                    new Date(simSessionDetails.startTime) <= new Date(args.input.timeFrame.timeTo));
 
-            simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.imsi &&
-                new Date(simSessionDetails.startTime) <= new Date(args.timeTo));
+            } else if (args.input.timeFrame.timeFrom && args.input.timeFrame.timeTo) {
 
-        } else if (args.timeFrom && args.timeTo) {
+                simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.input.imsi &&
+                    new Date(simSessionDetails.startTime) <= new Date(args.input.timeFrame.timeTo) &&
+                    new Date(simSessionDetails.startTime) >= new Date(args.input.timeFrame.timeFrom));
 
-            simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.imsi &&
-                new Date(simSessionDetails.startTime) <= new Date(args.timeTo) &&
-                new Date(simSessionDetails.startTime) >= new Date(args.timeFrom));
-
+            }
+        } else {
+            simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.input.imsi);
         }
 
-        if (args.first) {
-            for (let index = 0; index < args.first; index++) {
-                simSessionsHistory.push(simSessions[index])
+        if (args.input.pageInfo) {
+            if (args.input.pageInfo.first) {
+                for (let index = 0; index < args.first; index++) {
+                    simSessionsHistory.push(simSessions[index])
+                }
             }
         } else {
             return simSessions;
         }
+        
 
         return simSessionsHistory;
     }
