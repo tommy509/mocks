@@ -1,4 +1,4 @@
-var { simFinishSleep } = require("../data");
+var { simFinishSleep } = require("../../data");
 
 
 var resolvers = {

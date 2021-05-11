@@ -1,4 +1,4 @@
-var models = require("../data");
+var models = require("../../data");
  
 
 

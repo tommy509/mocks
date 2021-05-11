@@ -1,4 +1,4 @@
-var { simFinishTests } = require("../data");
+var { simFinishTests } = require("../../data");
 
 
 var resolvers = {

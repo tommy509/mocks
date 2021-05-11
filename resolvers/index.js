@@ -1,17 +1,17 @@
-const simDetailResolvers = require('./simDetails');
-const simChangeStatusResolvers = require('./simChangeStatus');
-const simLastSessionDetailsResolvers = require('./simLastSessionDetails');
-const simFinishSleepResolvers = require('./simFinishSleep');
-const simFinishTestsResolvers = require('./simFinishTests');
-const simActivateResolvers = require('./simActivate');
-const simClearLabelsResolvers = require('./simClearLabels');
-const simRemoveLabelResolvers = require('./simRemoveLabel');
-const simAddLabelsResolvers = require('./simAddLabels');
-const simChangeListResolvers = require('./simChangeList');
-const simMoveToInventoryResolvers = require('./simMoveToInventory');
-const simInstallationAddressResolvers = require("./simInstallationAddress")
-const smsSendResolvers = require("./smsSend")
-const smsListResolvers = require("./smsList")
+const simDetailResolvers = require('./queries/simDetails');
+const simChangeStatusResolvers = require('./queries/simChangeStatus');
+const simLastSessionDetailsResolvers = require('./queries/simLastSessionDetails');
+const simFinishSleepResolvers = require('./mutations/simFinishSleep');
+const simFinishTestsResolvers = require('./mutations/simFinishTests');
+const simActivateResolvers = require('./mutations/simActivate');
+const simClearLabelsResolvers = require('./mutations/simClearLabels');
+const simRemoveLabelResolvers = require('./mutations/simRemoveLabel');
+const simAddLabelsResolvers = require('./mutations/simAddLabels');
+const simChangeListResolvers = require('./mutations/simChangeList');
+const simMoveToInventoryResolvers = require('./mutations/simMoveToInventory');
+const simInstallationAddressResolvers = require("./mutations/simInstallationAddress")
+const smsSendResolvers = require("./mutations/smsSend")
+const smsListResolvers = require("./queries/smsList")
 
 module.exports = {
 

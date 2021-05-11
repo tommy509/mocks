@@ -1,4 +1,4 @@
-const models = require("../data");
+const models = require("../../data");
 
 
 var resolvers = {

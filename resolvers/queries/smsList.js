@@ -1,4 +1,4 @@
-var { smsList } = require("../data");
+var { smsList } = require("../../data");
 
 
 var resolvers = {
