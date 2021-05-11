@@ -17,9 +17,11 @@ module.exports = buildSchema(`
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
         simActivate(input: simActivateInput): simActivate,
         simClearLabels(imsi: ID!): simDetails,
-        simRemoveLabel(imsi: ID!, label: [String!]!): simDetails,
+        simRemoveCaption(imsi: ID!): simAddLabelDetails,
+        simRemoveLabel(imsi: ID!, label: [String!]!): simAddLabelDetails,
         simAddLabels(input:addLabelInput): simAddLabelDetails,
-        simMoveToInventory(imsi: ID!): simDetails,
+        simAssignName(input:addCaptionInput): simAddLabelDetails,
+        simMoveToInventory(imsi: ID!):simAddLabelDetails,
         simInstallationAddress(imsi: ID!, addressLines: [String!]!, postalCode: String!, city: String!, adminUnits: String, countryIso: String!,): simInstallationAddress,
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
     }
@@ -28,16 +30,21 @@ module.exports = buildSchema(`
         imsi: ID!,
         label: String,
     }
+    input addCaptionInput{
+        imsi: ID!,
+        name: String,
+    }
 
     type simAddLabelDetails{
         imsi: ID!,
+        name:String,
         msisdn: String,
         iccid: String,
         imei: String,
         labels: [String],
         status: String,
         customer: Customer,
-        businessUnit: String
+        businessUnit: String,
     }
 
     input simActivateInput{

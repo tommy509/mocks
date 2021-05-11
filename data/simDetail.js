@@ -1,5 +1,6 @@
 let simList = [
     {
+        name:"",
         imsi: "123456789012",
         msisdn: null,
         iccid: "123456789012",
@@ -10,6 +11,7 @@ let simList = [
         businessUnit: null
     },
     {
+        name:"",
         imsi: "210987654321",
         msisdn: null,
         iccid: "210987654321",
