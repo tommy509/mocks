@@ -7,7 +7,7 @@ let simList = [
         imei: null,
         labels: ["label1", "label2", "label3", "label4"],
         status: ["Pending"],
-        customer: 1,
+        customer:"GKgLAv0LR0qgBGcpfcI_bYMkuVs",
         businessUnit: null
     },
     {
@@ -18,7 +18,7 @@ let simList = [
         imei: null,
         labels: [],
         status: ["Live"],
-        customer: 2,
+        customer: "ADjnrveknrvlkwnl_38jvbkdbnckd",
         businessUnit: null
     }
 ];

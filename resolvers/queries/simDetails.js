@@ -1,3 +1,4 @@
+//const { customerList } = require("../../data");
 const models = require("../../data");
 
 
@@ -9,6 +10,9 @@ var resolvers = {
     simDetails: (args) => {
         console.log(args)
         const simDetail = models.simDetail.find(simDetail => simDetail.imsi === args.imsi);
+        const customer = models.customerList.find(customerList => customerList.id === simDetail.customer);
+        console.log(customer)
+        simDetail.customer=customer;
         return simDetail;
     },
 
