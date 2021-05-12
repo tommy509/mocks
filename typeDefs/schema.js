@@ -29,6 +29,9 @@ module.exports = buildSchema(`
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
         simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
         simRemoveRestrictions(input: simRestrictionInput!): simChangeStatus,
+        simAssignApns(input: simAPNSettings): simChangeStatus,
+        simUnAssignApns(input: simAPNSettings): simChangeStatus,
+        simConfigureApns(input: simAPNSettings): simChangeStatus,
     }
 
     input simRestrictionInput{
@@ -126,6 +129,10 @@ module.exports = buildSchema(`
         roamingProfileId:String,
         serviceProfileId:String,
         networkSettings:networkSettings,
+    }
+    input simAPNSettings{
+        imsi:Float!,
+        networkSettings:networkSettings
     }
     input networkSettings{
         apnName:String,

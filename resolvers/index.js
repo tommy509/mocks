@@ -19,6 +19,7 @@ const simApplyRestrictionsResolvers = require("./mutations/simApplyRestrictions"
 const simRemoveRestrictionsResolvers = require("./mutations/simRemoveRestrictions");
 const customerDetailsResolvers = require('./queries/customerDetails');
 const serviceProfileListResolvers = require('./queries/serviceProfileList');
+const apnSettingsResolvers = require('./mutations/simAPNSettings');
 
 module.exports = {
 
@@ -43,5 +44,8 @@ module.exports = {
         simApplyRestrictions: simApplyRestrictionsResolvers.simApplyRestrictions,
         simRemoveRestrictions: simRemoveRestrictionsResolvers.simRemoveRestrictions,
         customerDetails: customerDetailsResolvers.customerDetails,
-        serviceProfileList: serviceProfileListResolvers.serviceProfileList
+        serviceProfileList: serviceProfileListResolvers.serviceProfileList,
+        simAssignApns: apnSettingsResolvers.simAssignApns,
+        simUnAssignApns: apnSettingsResolvers.simUnAssignApns,
+        simConfigureApns:apnSettingsResolvers.simConfigureApns
 }
