@@ -18,6 +18,7 @@ const simRemoveCaptionResolvers = require("./mutations/simRemoveCaption");
 const simApplyRestrictionsResolvers = require("./mutations/simApplyRestrictions");
 const simRemoveRestrictionsResolvers = require("./mutations/simRemoveRestrictions");
 const customerDetailsResolvers = require('./queries/customerDetails');
+const serviceProfileListResolvers = require('./queries/serviceProfileList');
 
 module.exports = {
 
@@ -42,4 +43,5 @@ module.exports = {
         simApplyRestrictions: simApplyRestrictionsResolvers.simApplyRestrictions,
         simRemoveRestrictions: simRemoveRestrictionsResolvers.simRemoveRestrictions,
         customerDetails: customerDetailsResolvers.customerDetails,
+        serviceProfileList: serviceProfileListResolvers.serviceProfileList
 }

@@ -12,6 +12,7 @@ module.exports = buildSchema(`
         simChangeList(input: simChangeListParametersInput!): [ simChangeStatus ],
         smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
         customerDetails(name: String!): CustomerList,
+        serviceProfileList(input: PagingInput): serviceProfileList ,
     }
 
     type Mutation {
@@ -76,6 +77,35 @@ module.exports = buildSchema(`
     input simProfileLocationInput {
         imsi: ID!,
         installLocation: instalationLocationAdressInput!,
+    }
+
+    type serviceProfileList {
+        pageInfo: PageInfo!,
+        edges: [ serviceProfileEdges ],
+    }
+
+    type serviceProfileEdges {
+        node:  serviceProfileDetails 
+    }
+
+    type serviceProfileDetails {
+        id: ID!,
+        name: String!,
+        simRefs:  SimsConnections ,
+    }
+
+    type SimsConnections {
+        pageInfo: PageInfo,
+        edges: [ simConnectionsEdges ]
+    }
+
+    type simConnectionsEdges {
+        node: simConnectionDetails
+    }
+
+    type simConnectionDetails {
+        imsi: ID!,
+        iccid: String!,
     }
 
     type simAddLabelDetails{
