@@ -171,6 +171,7 @@ module.exports = buildSchema(`
         labels: [String],
         status: [String],
         customer: Customer,
+        serviceProfileId: String,
         businessUnit: String
     }
 
