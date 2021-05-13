@@ -5,9 +5,9 @@ var models = require("../../data");
 var resolvers = {
 
     simLastSessionDetails: (args) => {
-        console.log("simLastSessionDetails List", models.simLastSessionDetails)        
+        console.log("simLastSessionDetails", models.simSessionDetails)        
         console.log(args)
-        const simLastSessions = models.simLastSessionDetails.find( simLastSessionDetails =>  simLastSessionDetails.imsi === args.imsi);
+        const simLastSessions = models.simSessionDetails.find( simLastSessionDetails =>  simLastSessionDetails.imsi === args.imsi);
         return simLastSessions;
     }
 

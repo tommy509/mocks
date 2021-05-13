@@ -6,7 +6,7 @@ module.exports = buildSchema(`
     type Query{
         simList: [ simDetails ],
         simDetails(imsi: ID!): simDetails,
-        simLastSessionDetails(imsi: Float!): simSessionDetails,
+        simLastSessionDetails(imsi: ID!): simSessionDetails,
         simSessionHistory(input: sessionHistoryParametersInput!): [ simSessionDetails ],
         simChangeStatus(simChangeId: String!): simChangeStatus,
         simChangeList(input: simChangeListParametersInput!): simChangeList,
