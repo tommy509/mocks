@@ -24,7 +24,7 @@ module.exports = buildSchema(`
         simRemoveLabel(input:addLabelInput): simDetails,
         simAddLabels(input:addLabelInput): simDetails,
         simAssignName(input:addCaptionInput): simAddLabelDetails,
-        simMoveToInventory(input: simMoveToInventoryInput): simChangeStatus,
+        simMoveToInventory(input: simImsiInput): simChangeStatus,
         simInstallationAddress(input:simProfileLocationInput): simInstallationAddress,
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
         simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
@@ -32,11 +32,25 @@ module.exports = buildSchema(`
         simAssignApns(input: simAPNSettings): simChangeStatus,
         simUnAssignApns(input: simAPNSettings): simChangeStatus,
         simConfigureApns(input: simAPNSettings): simChangeStatus,
+        simTerminate(input: simImsiInput): simChangeStatus,
+        simConfigureExpecedImei(input: simConfigureExpectedImeiInput): simChangeStatus,
+        simChangeServiceProfile(input: simChangeServiceProfileInput): simChangeStatus,
     }
 
     input simRestrictionInput{
         imsi: ID!,
         restrictions: [String!]!,
+    }
+
+    input simConfigureExpectedImeiInput {
+        imsi: ID!,
+        imei: String!,
+        imeiLock: Boolean!,
+    }
+
+    input simChangeServiceProfileInput {
+        imsi: ID!,
+        serviceProfileId: String!,
     }
 
     input sessionHistoryParametersInput{
@@ -46,7 +60,7 @@ module.exports = buildSchema(`
 
     }
 
-    input simMoveToInventoryInput{
+    input simImsiInput{
         imsi: ID!,
     }
 

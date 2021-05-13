@@ -17,9 +17,12 @@ const simAssignCaptionResolvers = require("./mutations/simAssignCaption")
 const simRemoveCaptionResolvers = require("./mutations/simRemoveCaption");
 const simApplyRestrictionsResolvers = require("./mutations/simApplyRestrictions");
 const simRemoveRestrictionsResolvers = require("./mutations/simRemoveRestrictions");
+const simTerminateResolvers = require('./mutations/simTerminate');
 const customerDetailsResolvers = require('./queries/customerDetails');
 const serviceProfileListResolvers = require('./queries/serviceProfileList');
 const apnSettingsResolvers = require('./mutations/simAPNSettings');
+const simConfigureExpectedImeiResolvers = require('./mutations/simConfigureExpectedImei');
+const simChangeServiceProfileResolvers = require('./mutations/simChangeServiceProfile')
 
 module.exports = {
 
@@ -47,5 +50,8 @@ module.exports = {
         serviceProfileList: serviceProfileListResolvers.serviceProfileList,
         simAssignApns: apnSettingsResolvers.simAssignApns,
         simUnAssignApns: apnSettingsResolvers.simUnAssignApns,
-        simConfigureApns:apnSettingsResolvers.simConfigureApns
+        simConfigureApns:apnSettingsResolvers.simConfigureApns,
+        simTerminate: simTerminateResolvers.simTerminate,
+        simConfigureExpectedImei: simConfigureExpectedImeiResolvers.simConfigureExpectedImei,
+        simChangeServiceProfile: simChangeServiceProfileResolvers.simChangeServiceProfile,
 }
