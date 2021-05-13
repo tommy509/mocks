@@ -9,7 +9,7 @@ module.exports = buildSchema(`
         simLastSessionDetails(imsi: Float!): simSessionDetails,
         simSessionHistory(input: sessionHistoryParametersInput!): [ simSessionDetails ],
         simChangeStatus(simChangeId: String!): simChangeStatus,
-        simChangeList(input: simChangeListParametersInput!): [ simChangeStatus ],
+        simChangeList(input: simChangeListParametersInput!): simChangeList,
         smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
         customerDetails(name: String!): CustomerList,
         serviceProfileList(input: PagingInput): serviceProfileList ,
@@ -36,6 +36,7 @@ module.exports = buildSchema(`
         simConfigureExpecedImei(input: simConfigureExpectedImeiInput): simChangeStatus,
         simChangeServiceProfile(input: simChangeServiceProfileInput): simChangeStatus,
     }
+
 
     input simRestrictionInput{
         imsi: ID!,
@@ -71,7 +72,7 @@ module.exports = buildSchema(`
 
     input simChangeListParametersInput{
         pageInfo: PagingInput,
-        imsi: Float!
+        imsi: ID!
     }
 
     input addLabelInput{
@@ -95,6 +96,47 @@ module.exports = buildSchema(`
         imsi: ID!,
         installLocation: instalationLocationAdressInput!,
     }
+
+    input simActivateInput{
+        imsi:Float!,
+        state:String,
+        roamingProfileId:String,
+        serviceProfileId:String,
+        networkSettings:networkSettings,
+    }
+    input simAPNSettings{
+        imsi:Float!,
+        networkSettings:networkSettings
+    }
+    input networkSettings{
+        apnName:String,
+        allocationType:String
+    }
+
+    
+
+    input PagingInput{
+        before: String,
+        after: String,
+        first: Int,
+        last: Int,
+        offset: Int,
+        limit: Int,
+    }
+
+    input SmsListInput {
+        pageInfo: PagingInput,
+        imsi: ID!,
+        fromDate: String,
+        toDate: String,
+        smsIds: [String],
+    },
+
+    type simChangeList {
+        pageInfo: PageInfo!,
+        edges: [ simChangeStatus ],
+    }
+
 
     type serviceProfileList {
         pageInfo: PageInfo!,
@@ -135,22 +177,6 @@ module.exports = buildSchema(`
         status: String,
         customer: Customer,
         businessUnit: String,
-    }
-
-    input simActivateInput{
-        imsi:Float!,
-        state:String,
-        roamingProfileId:String,
-        serviceProfileId:String,
-        networkSettings:networkSettings,
-    }
-    input simAPNSettings{
-        imsi:Float!,
-        networkSettings:networkSettings
-    }
-    input networkSettings{
-        apnName:String,
-        allocationType:String
     }
 
     type simFinish {
@@ -245,23 +271,6 @@ module.exports = buildSchema(`
         recipientSim: String,
         messageEncoding: String,
     }
-
-    input PagingInput{
-        before: String,
-        after: String,
-        first: Int,
-        last: Int,
-        offset: Int,
-        limit: Int,
-    }
-
-    input SmsListInput {
-        pageInfo: PagingInput,
-        imsi: ID!,
-        fromDate: String,
-        toDate: String,
-        smsIds: [String],
-    },
     
 
     type PageInfo {

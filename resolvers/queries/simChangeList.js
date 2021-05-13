@@ -6,15 +6,23 @@ var resolvers = {
         const simChangeStatus = models.simChangeStatus.filter(simChange => simChange.imsi === args.input.imsi);
         var simChangeList = [];
 
-        if (args.input.pageInfo.first !== undefined) {
+        var pageInfo = {
+            total: models.simChangeStatus.length,
+        }
+
+        if (args.input.pageInfo.first) {
             for (let index = 0; index < args.input.pageInfo.first; index++) {
                 simChangeList.push(simChangeStatus[index])
             }
         } else {
-            return simChangeStatus;
+            return { pageInfo: pageInfo, edges: simChangeStatus };
         }
-        
-        return simChangeList;
+
+        pageInfo = {
+            total: simChangeList.length,
+        }
+
+        return { pageInfo: pageInfo, edges: simChangeList };
     }
 
 }
