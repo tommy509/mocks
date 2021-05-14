@@ -31,6 +31,7 @@ module.exports = {
         simChangeStatus: simChangeStatusResolvers.simChangeStatus,
         simChangeList: simChangeListResolvers.simChangeList,
         simLastSessionDetails: simLastSessionDetailsResolvers.simLastSessionDetails,
+        simDetailsList: simLastSessionDetailsResolvers.simDetailsList,
         simSessionHistory: simSessionHistoryResolvers.simSessionHistory,
         simFinishSleep: simFinishSleepResolvers.simFinishSleep,
         simFinishTests: simFinishTestsResolvers.simFinishTests,

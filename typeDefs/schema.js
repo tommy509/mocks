@@ -6,6 +6,7 @@ module.exports = buildSchema(`
     type Query{
         simList: [ simDetails ],
         simDetails(imsi: ID!): simDetails,
+        simDetailsList(input: simDetailsListInput): simDetailsList,
         simLastSessionDetails(imsi: ID!): simSessionDetails,
         simSessionHistory(input: sessionHistoryParametersInput!): [ simSessionDetails ],
         simChangeStatus(simChangeId: String!): simChangeStatus,
@@ -42,6 +43,45 @@ module.exports = buildSchema(`
         imsi: ID!,
         restrictions: [String!]!,
     }
+
+    input simDetailsListInput{
+        imsis:[String]
+    },
+
+    type pageInfo{
+        total:Int,
+    }
+    type simDetailsListEdges{
+        node:simSessionDetails,
+       
+    }
+
+  
+ 
+    type simDetailsList{
+        pageInfo:pageInfo,
+        edges:[simDetailsListEdges]
+
+    }
+
+    type simSessionDetails{
+        imsi:ID!
+        iccid:String,
+        caption:String,
+        status:String,
+        labels:[String],
+        startTime:String!,
+        endTime:String,
+        updateTime:String,
+        location:sessionLocation,
+        upLink:Int,
+        downLink:Int,
+        imei:Float,
+        
+    
+    }
+
+
     type businessUnit{
         id:ID,
         name:String
@@ -226,17 +266,7 @@ module.exports = buildSchema(`
     }
 
 
-    type simSessionDetails{
-        imsi:ID!
-        startTime:String!,
-        endTime:String,
-        updateTime:String,
-        location:sessionLocation,
-        upLink:Int
-        downLink:Int
-        imei:Float
-    
-    }
+
 
     type simInstallationAddress {
         imsi: ID!,
