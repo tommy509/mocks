@@ -34,7 +34,7 @@ module.exports = buildSchema(`
         simUnAssignApns(input: simAPNSettings): simChangeStatus,
         simConfigureApns(input: simAPNSettings): simChangeStatus,
         simTerminate(input: simImsiInput): simChangeStatus,
-        simConfigureExpecedImei(input: simConfigureExpectedImeiInput): simChangeStatus,
+        simConfigureExpectedImei(input: simConfigureExpectedImeiInput): simChangeStatus,
         simChangeServiceProfile(input: simChangeServiceProfileInput): simChangeStatus,
     }
 
