@@ -10,6 +10,7 @@ const smsSend = require('./smsSend');
 const smsList = require('./smsList');
 const customerList = require('./customerList')
 const serviceProfileList = require('./serviceProfileList')
+const businessUnits = require('./businessUnits')
 
 const models = {
 
@@ -24,6 +25,7 @@ const models = {
     smsSend,
     smsList,
     customerList,
+    businessUnits:businessUnits,
     serviceProfileList,
 
 };

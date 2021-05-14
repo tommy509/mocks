@@ -42,7 +42,10 @@ module.exports = buildSchema(`
         imsi: ID!,
         restrictions: [String!]!,
     }
-
+    type businessUnit{
+        id:ID,
+        name:String
+    }
     input simConfigureExpectedImeiInput {
         imsi: ID!,
         imei: String!,
@@ -219,7 +222,7 @@ module.exports = buildSchema(`
         status: [String],
         customer: Customer,
         serviceProfileId: String,
-        businessUnit: String
+        businessUnit: businessUnit
     }
 
 

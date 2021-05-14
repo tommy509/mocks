@@ -1,7 +1,7 @@
 let simList = [
     {
         name:"",
-        imsi: "123456789012",
+        imsi: "250010000007478",
         msisdn: null,
         iccid: "12345678901200",
         imei: null,
@@ -9,7 +9,7 @@ let simList = [
         status: ["Pending"],
         customer:"GKgLAv0LR0qgBGcpfcI_bYMkuVs",
         serviceProfileId: "Xr4DBOP9VmEHrgXFswBxXbEdg4E",
-        businessUnit: null
+        businessUnit: 1
     },
     {
         name:"",
@@ -21,7 +21,7 @@ let simList = [
         status: ["Live"],
         customer: "ADjnrveknrvlkwnl_38jvbkdbnckd",
         serviceProfileId: "A4DBOP43tgerv44gaegXFswegXi",
-        businessUnit: null
+        businessUnit: 2
     }
 ];
 
