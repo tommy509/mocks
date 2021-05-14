@@ -177,7 +177,11 @@ module.exports = buildSchema(`
 
     type simChangeList {
         pageInfo: PageInfo!,
-        edges: [ simChangeStatus ],
+        edges: [ simChangeStatusEdges ],
+    }
+
+    type simChangeStatusEdges {
+        node: simChangeStatus,
     }
 
 

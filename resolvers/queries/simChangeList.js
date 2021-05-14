@@ -5,26 +5,41 @@ var resolvers = {
     simChangeList: (args) => {
         const simChangeStatus = models.simChangeStatus.filter(simChange => simChange.imsi === args.input.imsi);
         var simChangeList = [];
+        var simChangeEdge = {};
 
         var pageInfo = {
             total: models.simChangeStatus.length,
         }
 
-        if (args.input.pageInfo.first) {
+        if (args.input.pageInfo && args.input.pageInfo.first) {
             for (let index = 0; index < args.input.pageInfo.first; index++) {
-                simChangeList.push(simChangeStatus[index])
+                simChangeEdge = {
+                    node: simChangeStatus[index]
+                };
+                simChangeList.push(simChangeEdge);
             }
+
+            pageInfo = {
+                total: simChangeList.length,
+            }
+
+            return { pageInfo: pageInfo, edges: simChangeList };
+
         } else {
-            return { pageInfo: pageInfo, edges: simChangeStatus };
-        }
+            for (let index = 0; index < simChangeStatus.length; index++) {
+                simChangeEdge = {
+                    node: simChangeStatus[index]
+                }
+                simChangeList.push(simChangeEdge);
+            }
 
-        pageInfo = {
-            total: simChangeList.length,
-        }
+            pageInfo = {
+                total: simChangeList.length,
+            }
 
-        return { pageInfo: pageInfo, edges: simChangeList };
+            return { pageInfo: pageInfo, edges: simChangeList };
+        }
     }
-
 }
 
 module.exports = resolvers;
