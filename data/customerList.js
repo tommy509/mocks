@@ -6,7 +6,7 @@ let customerData = [
             addressLines: ["Al. Jana Pawla II 39 a"],
             postalCode: "31864",
             city: "Krakow",
-            adminUnits: "",
+            adminUnits: [],
             countryIso: "PL",
         }
 
@@ -18,7 +18,7 @@ let customerData = [
             addressLines: ["Al. XVB 1340 b"],
             postalCode: "65162",
             city: "Queretaro",
-            adminUnits: "",
+            adminUnits: [],
             countryIso: "MEX",
         }
     },
