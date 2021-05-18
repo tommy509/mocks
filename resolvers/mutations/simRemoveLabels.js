@@ -4,7 +4,7 @@ const models = require("../../data");
 var resolvers = {
  
 
-    simRemoveLabel: (args) => {
+    simRemoveLabels: (args) => {
         const simDetail = models.simDetail.find(simDetail => simDetail.imsi === args.input.imsi);
 
         function isLabelIn (value) {

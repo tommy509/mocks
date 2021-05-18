@@ -6,7 +6,7 @@ const simFinishSleepResolvers = require('./mutations/simFinishSleep');
 const simFinishTestsResolvers = require('./mutations/simFinishTests');
 const simActivateResolvers = require('./mutations/simActivate');
 const simClearLabelsResolvers = require('./mutations/simClearLabels');
-const simRemoveLabelResolvers = require('./mutations/simRemoveLabel');
+const simRemoveLabelsResolvers = require('./mutations/simRemoveLabels');
 const simAddLabelsResolvers = require('./mutations/simAddLabels');
 const simChangeListResolvers = require('./queries/simChangeList');
 const simMoveToInventoryResolvers = require('./mutations/simMoveToInventory');
@@ -37,7 +37,7 @@ module.exports = {
         simFinishTests: simFinishTestsResolvers.simFinishTests,
         simActivate: simActivateResolvers.simActivate,
         simClearLabels: simClearLabelsResolvers.simClearLabels,
-        simRemoveLabel: simRemoveLabelResolvers.simRemoveLabel,
+        simRemoveLabels: simRemoveLabelsResolvers.simRemoveLabels,
         simAddLabels: simAddLabelsResolvers.simAddLabels,
         simMoveToInventory: simMoveToInventoryResolvers.simMoveToInventory,
         simInstallationAddress: simInstallationAddressResolvers.simInstallationAddress,

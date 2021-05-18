@@ -22,7 +22,7 @@ module.exports = buildSchema(`
         simActivate(input: simActivateInput): simActivate,
         simClearLabels(imsi: ID!): simDetails,
         simRemoveCaption(imsi: ID!): simAddLabelDetails,
-        simRemoveLabel(input:addLabelInput): simDetails,
+        simRemoveLabels(input:addLabelInput): simDetails,
         simAddLabels(input:addLabelInput): simDetails,
         simAssignName(input:addCaptionInput): simAddLabelDetails,
         simMoveToInventory(input: simImsiInput): simChangeStatus,
