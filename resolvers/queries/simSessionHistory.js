@@ -11,6 +11,7 @@ var resolvers = {
         // var timeTo   = handleFunctions.handleDateTime(args.input.timeFrame.timeTo); 
         var simSessionsHistory = [];
         var simSessions = [];
+        var simSession, pageInfo;
 
 
         if (args.input.timeFrame) {
@@ -38,15 +39,31 @@ var resolvers = {
         if (args.input.pageInfo) {
             if (args.input.pageInfo.first) {
                 for (let index = 0; index < args.first; index++) {
-                    simSessionsHistory.push(simSessions[index])
+                    simSession = {
+                        node: simSessions[index],
+                    }
+                    simSessionsHistory.push(simSession)
                 }
             }
         } else {
-            return simSessions;
+            for (let index = 0; index < simSessions.length; index++) {
+                simSession = {
+                    node: simSessions[index],
+                }
+                simSessionsHistory.push(simSession)
+            }
+            pageInfo = {
+                total: simSessionsHistory.length,
+            }
+
+            return {pageInfo: pageInfo, edges: simSessionsHistory};
         }
         
+        pageInfo = {
+            total: simSessionsHistory.length,
+        }
 
-        return simSessionsHistory;
+        return {pageInfo: pageInfo, edges: simSessionsHistory};
     }
 
 }

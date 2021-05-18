@@ -8,7 +8,7 @@ module.exports = buildSchema(`
         simDetails(imsi: ID!): simDetails,
         simDetailsList(input: simDetailsListInput): simDetailsList,
         simLastSessionDetails(imsi: ID!): simSessionDetails,
-        simSessionHistory(input: sessionHistoryParametersInput!): [ simSessionDetails ],
+        simSessionHistory(input: sessionHistoryParametersInput!): simSessionHistory,
         simChangeStatus(simChangeId: String!): simChangeStatus,
         simChangeList(input: simChangeListParametersInput!): simChangeList,
         smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
@@ -47,50 +47,6 @@ module.exports = buildSchema(`
     input simDetailsListInput{
         imsis:[String]
     },
-
-    type pageInfo{
-        total:Int,
-    }
-    type simDetailsListEdges{
-        node:simSessionDetails,
-       
-    }
-
-  
- 
-    type simDetailsList{
-        pageInfo:pageInfo,
-        edges:[simDetailsListEdges]
-
-    }
-
-    type simSessionDetails{
-        imsi:ID!
-        iccid:String,
-        caption:String,
-        status:String,
-        labels:[String],
-        startTime:String!,
-        endTime:String,
-        updateTime:String,
-        location:sessionLocation,
-        upLink:Int,
-        downLink:Int,
-        imei:Float,
-        
-    
-    }
-
-
-    type businessUnit{
-        id:ID,
-        name:String
-    }
-    input simConfigureExpectedImeiInput {
-        imsi: ID!,
-        imei: String!,
-        imeiLock: Boolean!,
-    }
 
     input simChangeServiceProfileInput {
         imsi: ID!,
@@ -156,7 +112,58 @@ module.exports = buildSchema(`
         allocationType:String
     }
 
+    type pageInfo{
+        total:Int,
+    }
+    type simDetailsListEdges{
+        node:simSessionDetails,
+       
+    }
+
+  
+ 
+    type simDetailsList{
+        pageInfo: pageInfo,
+        edges:[simDetailsListEdges]
+
+    }
+
+    type simSessionDetails{
+        imsi:ID!
+        iccid:String,
+        caption:String,
+        status:String,
+        labels:[String],
+        startTime:String!,
+        endTime:String,
+        updateTime:String,
+        location:sessionLocation,
+        upLink:Int,
+        downLink:Int,
+        imei:Float,
+        
     
+    }
+
+    type simSessionHistory {
+        pageInfo: pageInfo,
+        edges:[simSessionHistoryEdges]
+    }
+
+    type simSessionHistoryEdges {
+        node: simSessionDetails,
+    }
+
+
+    type businessUnit{
+        id:ID,
+        name:String
+    }
+    input simConfigureExpectedImeiInput {
+        imsi: ID!,
+        imei: String!,
+        imeiLock: Boolean!,
+    }
 
     input PagingInput{
         before: String,
