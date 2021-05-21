@@ -3,24 +3,9 @@
 var axios = require('axios');
 const token = require("./getToken");
 
-function getToken() {
 
-    const promise = axios.post(token.url, token.data, {
-        headers: token.headers
-    });
 
-    const dataPromise = promise
-        .then((res) => {
-            return res.data.access_token;
-        })
-        .catch((err) => {
-            console.log("AXIOS ERROR: ", err);
-        });
-
-    return dataPromise
-}
-
-getToken()
+token.getToken()
     .then(token => {
         //QUERY OR MUTATION
         let data = JSON.stringify({
