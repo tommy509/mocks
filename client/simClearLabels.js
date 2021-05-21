@@ -1,0 +1,39 @@
+var axios = require('axios');
+var data = JSON.stringify({
+  query: `query {
+  simLastSessionDetails(imsi:334020223775530) {
+    startTime
+    endTime
+    updateTime
+    location{
+      mcc
+      mnc
+
+    }
+    upLink
+    downLink
+    imei
+  }
+}`,
+  variables: {}
+});
+
+var config = {
+  method: 'post',
+  url: 'https://api-claroconnect.simplify.a1.digital/graphql',
+  headers: { 
+    'Origin': 'https://api-claroconnect.simplify.a1.digital', 
+    'Referer': 'https://api-claroconnect.simplify.a1.digital/graphiql', 
+    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJya285VkV0MHNObmlYWWRoR1BtZzYySW5GYkdlTFlORENuVF9DNEd4YzhZIn0.eyJleHAiOjE2MjE0NDE5NTMsImlhdCI6MTYyMTQ0MTY1MywiYXV0aF90aW1lIjoxNjIxNDQxMjUxLCJqdGkiOiI3MGIwZGQzMi04NTYzLTRjOWQtODIwNi1lODI4MDEyODg1MjgiLCJpc3MiOiJodHRwczovL2FwaS1jbGFyb2Nvbm5lY3Quc2ltcGxpZnkuYTEuZGlnaXRhbC9hdXRoL3JlYWxtcy9jbGFyby1leHRlcm5hbCIsInN1YiI6IjkwNDQ4ODQzLWRlNjgtNDYxNy1iZGEwLTJjOTM1YThmNmY0MCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImdyYXBoaXFsIiwibm9uY2UiOiJhNmYxODcxOC0xZGRkLTQ4NTYtODA2NS03OGNlNDI1OWExZGIiLCJzZXNzaW9uX3N0YXRlIjoiNzk0MDU1YzgtZDg1Yy00YWIwLWIzOGQtMzNkNWJmMTI4YTRiIiwiYWNyIjoiMCIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL2FwaS1jbGFyb2Nvbm5lY3Quc2ltcGxpZnkuYTEuZGlnaXRhbCIsImh0dHBzOi8vdmVuZG9yLmFteC5jbGFyb2Nvbm5lY3QuY29tIiwiaHR0cHM6Ly92ZW5kb3ItY2xhcm9jb25uZWN0LnNpbXBsaWZ5LmExLmRpZ2l0YWwiLCJodHRwczovL2FwaS5hbXguY2xhcm9jb25uZWN0LmNvbSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiQ19VU0VSIiwiQ19BUElfQUNDRVNTIiwiQ19BUElVTSIsIkNfQURNSU4iLCJteV9zZXJ2aWNlIiwibXlfYWRtaW4iLCJDX01BTkFHRVIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGl1bmdvX2RhdGFfY29udGV4dCIsIm5hbWUiOiJUb21teSBUaGVvZG9yZSIsImlzX3ZlbmRvciI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImFfYXRlZXZlbnN0dEBnbG9iYWxoaXRzcy5jb20iLCJsb2NhbGUiOiJlcyIsImZhbWlseV9uYW1lIjoiVG9tbXkgVGhlb2RvcmUiLCJvd25lcl9wYXJ0eV9pZCI6ImFNSUhBd0FBQVhmdXNaWWU3c0xWQ2NjREFBQSIsImRhdGFfYWNjZXNzX2N0eCI6WyJBdGdIQThlS19KS2FvZ2pMZUNETURZYUhEZDgvUzVBSEE2YUVhX1R6LUpRcWJaZVZDQnRjbXIwL05MUUhBNTFzVzJBTTVuUUV1Y3pCcmkyeEZjSS9hTUlIQXdBQUFYZnVzWlllN3NMVkNjY0RBQUEvJSxBdGdIQThlS19KS2FvZ2pMZUNETURZYUhEZDgvUzVBSEE2YUVhX1R6LUpRcWJaZVZDQnRjbXIwL05MUUhBNTFzVzJBTTVuUUV1Y3pCcmkyeEZjSSxBdGdIQThlS19KS2FvZ2pMZUNETURZYUhEZDgvTkxRSEE1MXNXMkFNNW5RRXVjekJyaTJ4RmNJLEEiLCJ0Z0hBOGVLX0pLYW9nakxlQ0RNRFlhSERkOC9TNUFIQTZhRWFfVHotSlFxYlplVkNCdGNtcjAsQXRnSEE4ZUtfSkthb2dqTGVDRE1EWWFIRGQ4Il19.lSE3YhcanbHK9b9zEUWc2BBxAEi8G9O2WzqU6YblPKpdtfBXrgUdw-2WACT-gXtUbH2xIQk_UxowdRly4BvhgRR7cO8bLuWxJXIvvEjku9iLAIE57sGeyVDTbLnC_u3fprHfuhtdBNqy6DdSPTW2AtM_GSOoAtj53apu3DLLPMq98KLknPwDdQYAEaMjo4oduvcQZZYgiBtf2Zid1YweRrrnWPkx6XuNiVtthJRYG1f5b9TqskIpRfob_o6RqxQZTtlzUC8PR21-x99zkYL5Koxb9CzG0fIvZ-T1fR7lzAEGnxeHiwuAlRgg4vqkly0Pyz98OIAFWVIHLTmjZA577w', 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
