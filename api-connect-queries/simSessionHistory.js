@@ -47,7 +47,8 @@ token.getToken()
 
         axios(config)
             .then(function (response) {
-                console.log(response.data);
+              console.log(JSON.stringify(response.data));
+      
             })
             .catch(function (error) {
                 console.log(error);

@@ -2,8 +2,6 @@
 var axios = require('axios');
 const token = require("./getToken");
 
-
-
 token.getToken()
   .then(token => {
     //QUERY OR MUTATION
