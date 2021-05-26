@@ -1,11 +1,11 @@
 
 
 var axios = require('axios');
-const token = require("./getToken");
+const configuration = require("./config");
 
 
 
-token.getToken()
+configuration.getToken()
     .then(token => {
         //QUERY OR MUTATION
         let data = JSON.stringify({
@@ -35,10 +35,10 @@ token.getToken()
         //ACCESS TO API-CLAROCONNECT
         let config = {
             method: 'post',
-            url: 'https://api-claroconnect.simplify.a1.digital/graphql',
+            url: configuration.endpoint,
             headers: {
-                'Origin': 'https://api-claroconnect.simplify.a1.digital',
-                'Referer': 'https://api-claroconnect.simplify.a1.digital/graphiql',
+                'Origin': configuration.endpoint,
+                'Referer':configuration.endpoint,
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
             },
