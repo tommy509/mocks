@@ -1,7 +1,5 @@
 var axios = require('axios');
 const configuration = require("./config");
-
-
 configuration.getToken()
   .then(token => {
     //QUERY OR MUTATION
@@ -14,7 +12,6 @@ configuration.getToken()
         location{
           mcc
           mnc
-    
         }
         upLink
         downLink
@@ -23,7 +20,6 @@ configuration.getToken()
     }`,
       variables: {}
     });
-    
     //ACCESS TO API-CLAROCONNECT
     let config = {
       method: 'post',
@@ -34,7 +30,6 @@ configuration.getToken()
       },
       data : data
     };
-    
     axios(config)
     .then(function (response) {
       console.log(response.data);
@@ -42,6 +37,4 @@ configuration.getToken()
     .catch(function (error) {
       console.log(error);
     });
- 
-  })
-  .catch(err => console.log(err));
+  }).catch(err => console.log(err));

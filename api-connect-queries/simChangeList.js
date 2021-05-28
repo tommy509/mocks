@@ -1,8 +1,6 @@
 
 var axios = require('axios');
 const configuration = require("./config");
-
-
 configuration.getToken()
   .then(token => {
     //QUERY OR MUTATION
