@@ -1,0 +1,8 @@
+NODE_ENV=development
+
+# Connection information here
+GRANT_TYPE=client_credentials
+CLIENT_ID=onofrejc_hitss-aMIhA1Tkaam4bdB2RxG0-3Dj8G8
+CLIENT_SECRET=7bd71662-8a0f-4697-9a81-f95ba57e6fb4
+API_URL=https://api-claroconnect.simplify.a1.digital/graphql
+AUTH_URL=https://api-claroconnect.simplify.a1.digital/auth/realms/iot-connect/protocol/openid-connect/token
