@@ -30,5 +30,5 @@
     "url": "https://github.com/tommy509/mocks/issues"
   },
   "homepage": "https://github.com/tommy509/mocks#readme",
-  "description": ""
+  "description": "``\r git clone \r ``\r ## 2.- In visual studio code, execute the command\r ``\r npm install express express-graphql graphql --save\r ``\r ## 2.- Run the project\r ``\r node server.js\r ``"
 }
