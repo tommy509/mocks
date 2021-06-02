@@ -3,9 +3,24 @@ var { buildSchema } = require('graphql');
 //module.exports = gql`
 module.exports = buildSchema(`
 
+    
+
     type Query{
+        """
+        Get detailed list of SIMs which are owned by customer. The average execution time is from 2s to 4s, 
+        but it may depend on how much data stored in the system.This function provides similar functionality
+        as GetDeviceDetails and GetTerminalDetails in Jasper.
+        """
         simList: [ simDetails ],
-        simDetails(imsi: ID!): simDetails,
+
+        """
+        Get complete information on the given SIM. This function provides similar functionality
+        as GetDeviceDetails in Jasper.
+        """
+        simDetails(
+            "imsi is used to specified the desired sim, also iccid can be used "
+            imsi: ID!
+        ): simDetails,
         simDetailsList(input: simDetailsListInput): simDetailsList,
         simLastSessionDetails(imsi: ID!): simSessionDetails,
         simSessionHistory(input: sessionHistoryParametersInput!): simSessionHistory,
@@ -264,7 +279,9 @@ module.exports = buildSchema(`
         creationTime: String, 
       }
 
+    """ Represent a sim and its characteristics """
     type simDetails{
+        "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1 "
         imsi: ID!,
         msisdn: String,
         iccid: String,
