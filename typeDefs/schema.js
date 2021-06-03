@@ -22,16 +22,40 @@ module.exports = buildSchema(`
             imsi: ID!
         ): simDetails,
         simDetailsList(input: simDetailsListInput): simDetailsList,
+
+        
+        """
+        Retrieve information about the last session of a given SIM. This function provides similar functionality
+        as GetSessionDetails in Jasper.
+        """
         simLastSessionDetails(imsi: ID!): simSessionDetails,
+
 
         """
         Retrieve session history for a given SIM. This function provides similar functionality
         as GetSessionDetails in Jasper.
         """
         simSessionHistory(input: sessionHistoryParametersInput!): simSessionHistory,
+        
+        """
+        Get SIM change operation status for given SIM change identifier. This function provides similar functionality
+        as Get Device Details in Jasper.
+        """
+        simChangeStatus(
+            """The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."""
+            simChangeId: String!
+        ): simChangeStatus,
 
-        simChangeStatus(simChangeId: String!): simChangeStatus,
+        """
+        Get SIM change operation status list for given SIM identifier. This function provides similar functionality
+        as Get Device Details in Jasper.
+        """
         simChangeList(input: simChangeListParametersInput!): simChangeList,
+
+        """
+        Return detailed information about one or more sms messages. This function provides similar functionality
+        as GetSmsDetails in Jasper wich returns information about only one message sent by a device to the control center or from the control center to a device. Here we can get information about multiple messages at a time. 
+        """
         smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
         
         """
@@ -56,10 +80,32 @@ module.exports = buildSchema(`
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
 
         simActivate(input: simActivateInput): simActivate,
+        """
+        This function is used to clear labels of a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
+        
+        """
         simClearLabels(imsi: ID!): simDetails,
+        """
+        This function is used to remove a caption from a given sim. 
+        
+        """
         simRemoveCaption(imsi: ID!): simAddLabelDetails,
+        """
+        This function is used to remove label(s) from a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
+        
+        """
         simRemoveLabels(input:addLabelInput): simDetails,
+
+        """
+        This function is used to add a label to a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
+        
+        """
+
         simAddLabels(input:addLabelInput): simDetails,
+        """
+        This function is used to assign a caption to a given sim. 
+        
+        """
         simAssignName(input:addCaptionInput): simAddLabelDetails,
         simMoveToInventory(input: simImsiInput): simChangeStatus,
         """
@@ -116,8 +162,12 @@ module.exports = buildSchema(`
     }
 
     input simChangeListParametersInput{
+        """Information about pagination in a connection."""
         pageInfo: PagingInput,
-        imsi: ID!
+        """The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."""
+        imsi: ID,
+        """The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."""
+        iccid: ID,
     }
 
     input addLabelInput{
@@ -229,7 +279,9 @@ module.exports = buildSchema(`
     },
 
     type simChangeList {
+        """Information about pagination in a connection."""
         pageInfo: PageInfo!,
+        
         edges: [ simChangeStatusEdges ],
     }
 
@@ -291,12 +343,19 @@ module.exports = buildSchema(`
     }
 
     type simChangeStatus{
+        """Sim change identifier"""
         id: String!,
+        """Sim identifier"""
         simId: String,
+        """Requested time of task execution"""
         requestedTime: String,
+        """List of change types"""
         changeType: [String],
+        """Current state of changes. "Pending" for scheduled operation, "InProgres" for currently executing operation, "Complete" for executed operation, "Failed" for executed with error operation, and "Cancelled" for canceled scheduled operation."""
         state: String,
+        """Time of changes completion"""
         completionTime: String,
+        """Time of changes creation"""
         creationTime: String, 
     }
 
