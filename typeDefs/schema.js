@@ -69,7 +69,12 @@ module.exports = buildSchema(`
         simInstallationAddress(input:simProfileLocationInput): simInstallationAddress,
         
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
+
+        """
+        Apply restrictions to given SIM card. This function provides similar functionality as ???? in Jasper.
+        """
         simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
+
         simRemoveRestrictions(input: simRestrictionInput!): simChangeStatus,
         simAssignApns(input: simAPNSettings): simChangeStatus,
         simUnAssignApns(input: simAPNSettings): simChangeStatus,
