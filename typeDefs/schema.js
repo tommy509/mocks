@@ -23,17 +23,38 @@ module.exports = buildSchema(`
         ): simDetails,
         simDetailsList(input: simDetailsListInput): simDetailsList,
         simLastSessionDetails(imsi: ID!): simSessionDetails,
+
+        """
+        Retrieve session history for a given SIM. This function provides similar functionality
+        as GetSessionDetails in Jasper.
+        """
         simSessionHistory(input: sessionHistoryParametersInput!): simSessionHistory,
+
         simChangeStatus(simChangeId: String!): simChangeStatus,
         simChangeList(input: simChangeListParametersInput!): simChangeList,
         smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
+        
+        """
+        Get information about Customer base on logged in user context. This function provides similar functionality
+        as GetDeviceDetails in Jasper.
+        """
         customerDetails(name: String!): CustomerList,
         serviceProfileList(input: PagingInput): serviceProfileList ,
     }
 
     type Mutation {
+        """
+        Change SIM state from Sleep To Live. Allowed move for simFinishSleep operation is from state Sleep to Live.
+        This function provides similar functionality as ???? in Jasper.
+        """
         simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
+
+        """
+        Finish the test stage of a SIM Card. Allowed moves for simFinishTests operation is from state Test to Live or Sleep.
+        This function provides similar functionality as ???? in Jasper.
+        """
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
+
         simActivate(input: simActivateInput): simActivate,
         simClearLabels(imsi: ID!): simDetails,
         simRemoveCaption(imsi: ID!): simAddLabelDetails,
@@ -41,7 +62,12 @@ module.exports = buildSchema(`
         simAddLabels(input:addLabelInput): simDetails,
         simAssignName(input:addCaptionInput): simAddLabelDetails,
         simMoveToInventory(input: simImsiInput): simChangeStatus,
+        """
+        Set address for given sim where it is expected to be used. This function provides similar functionality
+        as ???? in Jasper.
+        """
         simInstallationAddress(input:simProfileLocationInput): simInstallationAddress,
+        
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
         simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
         simRemoveRestrictions(input: simRestrictionInput!): simChangeStatus,
