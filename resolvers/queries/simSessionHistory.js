@@ -1,4 +1,4 @@
-const handleFunctions = require('../../handleFunctions')
+//const handleFunctions = require('../../handleFunctions')
 
 var models = require("../../data");
 const { simSessionDetails } = require('../../data');
@@ -22,7 +22,7 @@ var resolvers = {
 
             } else if (!args.input.timeFrame.timeFrom && args.input.timeFrame.timeTo) {
 
-                simSessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.input.imsi &&
+                simSnpmessions = models.simSessionDetails.filter(simSessionDetails => simSessionDetails.imsi === args.input.imsi &&
                     new Date(simSessionDetails.startTime) <= new Date(args.input.timeFrame.timeTo));
 
             } else if (args.input.timeFrame.timeFrom && args.input.timeFrame.timeTo) {
