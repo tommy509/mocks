@@ -18,7 +18,7 @@ module.exports = buildSchema(`
         as GetDeviceDetails in Jasper.
         """
         simDetails(
-            "imsi is used to specified the desired sim, also iccid can be used "
+            "imsi is used to specified the desired sim, also iccid can be used in CMP"
             imsi: ID!
         ): simDetails,
         simDetailsList(input: simDetailsListInput): simDetailsList,
@@ -281,16 +281,50 @@ module.exports = buildSchema(`
 
     """ Represent a sim and its characteristics """
     type simDetails{
-        "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1 "
+        "The SIM IMSI Identifier"
         imsi: ID!,
+        "The SIM MSISDN Identifier"
         msisdn: String,
+        "The SIM ICCID Identifier"
         iccid: String,
+        "Identifier of the device which should use this SIM"
         imei: String,
+        "SIM Caption is an identifier that can be added by user (it can be for example Vehicle registration plate for the SIM that installed in the car)"
+        caption: String,
+        "SIM Labels similar to SIM Caption but contains the list of custom SIM identifiers. 'Labels' field is better to use for hierarchical structures (for example, SIM is located in Krakow so we can add labels ['Poland', 'Lesser Poland','Krakow'] it can help us filter all the SIMs from Krakow or from Lesser Poland Voivodeship, also we can add to this list actual street where the sim is located), compare to SIM caption which may be some unique identifier for the sim (example Vehicle registration plate). Limit for this field is 32766 bytes"
         labels: [String],
-        status: [String],
+        "Customer information, see Customer"
         customer: Customer,
-        serviceProfileId: String,
+        "Business unit information, see BusinessUnitDetails"
         businessUnit: businessUnit
+        "Sim settings information, see SimServicesSettings"
+        simSettings: SimServicesSettings,
+        "Lifecycle phase SIM is currently in"
+        status: [String],
+        "List of APNs assigned to the SIM with detailed information within" 
+        apns: [NetworkSettings],
+        "The time of SIM activation"
+        activationDate: OffsetDateTime, 
+        "Quantity of services usage resources, tied up together, see USAGEALLOWANCE"
+        usageAllowances: USAGEALLOWANCE, 
+        "SIM PIN1 code information"
+        pin1: String,
+        "SIM PIN2 code information"
+        pin2: String,
+        "SIM PUK1 code information"
+        puk1: String,
+        "SIM PUK2 code information"
+        puk2: String,
+        "eSIM profile information"
+        eProfile: Eprofile,
+        roamingSettings: ROAMINGSETTINGS,
+        usageInformation: USAGEINFORMATION,
+        installLocation: INSTALATIONLOCATIONADRESS,
+        lastSessionDetails: LastSessionDetails,
+        simChangesRefs(paging: PagingInput): SimChangesConnection,
+        allowances: AllowancesConnection,
+        imeiInfo: ImeiInfo
+       
     }
 
 
