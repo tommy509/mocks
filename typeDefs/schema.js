@@ -122,11 +122,24 @@ module.exports = buildSchema(`
         simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
 
         simRemoveRestrictions(input: simRestrictionInput!): simChangeStatus,
+
+        """
+        Specify APNs (Access Point Names) which should be included to the defined set for the SIM.
+        """
         simAssignApns(input: simAPNSettings): simChangeStatus,
+        """
+        Specify APNs (Access Point Names) which should be no longer used by the SIM.
+        """
         simUnAssignApns(input: simAPNSettings): simChangeStatus,
+        """
+        Configure APNs (Access Point Names) used by the SIM.
+        """
         simConfigureApns(input: simAPNSettings): simChangeStatus,
         simTerminate(input: simImsiInput): simChangeStatus,
         simConfigureExpectedImei(input: simConfigureExpectedImeiInput): simChangeStatus,
+        """
+        Specify Service Profile (SIM services configuration) for SIM.
+        """
         simChangeServiceProfile(input: simChangeServiceProfileInput): simChangeStatus,
     }
 
@@ -141,7 +154,9 @@ module.exports = buildSchema(`
     },
 
     input simChangeServiceProfileInput {
+        """SIM IMSI Identifier"""
         imsi: ID!,
+        """Identifier of SIM services configuration"""
         serviceProfileId: String!,
     }
 
@@ -200,12 +215,16 @@ module.exports = buildSchema(`
         networkSettings:networkSettings,
     }
     input simAPNSettings{
+        """SIM IMSI Identifier"""
         imsi:Float!,
+        """List of parameters describing network settings, see NetworkSettingsInput"""
         networkSettings:networkSettings
     }
     input networkSettings{
-        apnName: String,
-        allocationType: String
+        """Access Point Name assigned to the SIM"""
+        apnName:String,
+        """IP allocation strategy, see IpAllocationType"""
+        allocationType:String
     }
 
     type  NetworkSettings{
