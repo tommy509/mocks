@@ -42,7 +42,7 @@ module.exports = buildSchema(`
         as Get Device Details in Jasper.
         """
         simChangeStatus(
-            """The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."""
+            """The Float scalar type represents non-fractional signed whole numeric values. Float can represent values between -(2^63) and 2^63 - 1."""
             simChangeId: String!
         ): simChangeStatus,
 
@@ -179,9 +179,9 @@ module.exports = buildSchema(`
     input simChangeListParametersInput{
         """Information about pagination in a connection."""
         pageInfo: PagingInput,
-        """The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."""
+        """The Float scalar type represents non-fractional signed whole numeric values. Float can represent values between -(2^63) and 2^63 - 1."""
         imsi: ID,
-        """The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."""
+        """The Float scalar type represents non-fractional signed whole numeric values. Float can represent values between -(2^63) and 2^63 - 1."""
         iccid: ID,
     }
 
@@ -231,7 +231,6 @@ module.exports = buildSchema(`
         apnName: String,
         allocationType: IpAllocationType
     }
-
 
     type pageInfo{
         total:Int,
@@ -432,9 +431,9 @@ module.exports = buildSchema(`
         puk2: String,
         "eSIM profile information"
         eProfile: Eprofile,
-        roamingSettings: ROAMINGSETTINGS,
-        usageInformation: USAGEINFORMATION,
-        installLocation: INSTALATIONLOCATIONADRESS,
+        roamingSettings: RoamingSettings,
+        usageInformation: UsageInformation,
+        installLocation: InstallationLocationAdress,
         lastSessionDetails: LastSessionDetails,
         simChangesRefs(paging: PagingInput): SimChangesConnection,
         allowances: AllowancesConnection,
@@ -442,8 +441,95 @@ module.exports = buildSchema(`
        
     }
 
+    type ImeiInfo{
+        baseImei: String!,
+        imei: String!,
+        imeisv: String,
+        checkDigit: Int,
+        softwareVersionDigit: String,
+        expectedDigit: Int!,
+        isValid: Boolean!,
+        typeApprovalCode: String!,
+        serialNumber: String!
+    }
 
+    type SimChangesConnection{
+        pageInfo: PageInfo!
+        edges: [SimChangesEdge!]!
+    }
 
+    type SimChangesEdge{
+        "Single instance of SimChanges"
+        node: SimChangeDetails!
+        "Cursor string used for pagination"
+        cursor: String!
+       "Record position" 
+        cursorPosition: Float!
+        
+    }
+
+    type LastSessionDetails{
+        "Last session start date"
+        startTime: String,
+        "Last session end date"
+        endTime: String,
+        "Last session update time during active state"
+        updateTime: String,
+        "Last session location"
+        location: SessionLocation!,
+        "Data size sent during last session"
+        upLink: Float,
+        "Data size received during last session"
+        downLink: Float,
+        "IPV4 address assigned to this device during last session"
+        ipAddressV4: String,
+        "IPV6 address prefix assigned to this device during last session"
+        ipAddressV6Prefix: String,
+        "IMEI identifier of the device that established connection"
+        imei: String,
+        imeiInfo: ImeiInfo
+    }
+
+    type InstallationLocationAdress{
+        "address lines"
+        addressLines: [String!]!,
+        "Postal code"
+        postalCode: String!,
+        "City"
+        city: String!,
+        "State"
+        adminUnits: [String!],
+        "Country Code"
+        countryIso: ISOCountry!
+    }
+
+    type UsageInformation{
+        "Information about data transfers quantity, see Data"
+        data: Data
+    }
+
+    type Data{
+        "Data size sent"
+        upLink: Float,
+        "Data size received"
+        downLink: Float
+    }
+
+    type Eprofile{
+        eid: EID,
+        smSrId: SmSrId,
+        state: ESimState!,
+        roles: [ESimRole!]!
+    }
+
+    type RoamingSettings{
+        "Data roaming status"
+        dataRoaming: SimCellularServiceState,
+       "SMS MO roaming status"
+        smsMoRoaming: SimCellularServiceState,
+       "Voice roaming status"
+        voiceRoaming: SimCellularServiceState
+    }
 
     type simInstallationAddress {
         imsi: ID!,
@@ -538,12 +624,12 @@ module.exports = buildSchema(`
     }
 
     type BundleSize{
-        dataBytes: Long,
-        dataDuration: Long,
-        dataSessions: Long,
-        smsCalls: Long,
-        voiceCalls: Long,
-        voiceDuration: Long
+        dataBytes: Float,
+        dataDuration: Float,
+        dataSessions: Float,
+        smsCalls: Float,
+        voiceCalls: Float,
+        voiceDuration: Float
     }
 
     enum UsageAllowanceType{
