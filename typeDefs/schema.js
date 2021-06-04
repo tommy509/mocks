@@ -204,9 +204,15 @@ module.exports = buildSchema(`
         networkSettings:networkSettings
     }
     input networkSettings{
-        apnName:String,
-        allocationType:String
+        apnName: String,
+        allocationType: String
     }
+
+    type  NetworkSettings{
+        apnName: String,
+        allocationType: IpAllocationType
+    }
+
 
     type pageInfo{
         total:Int,
@@ -390,13 +396,13 @@ module.exports = buildSchema(`
         "Sim settings information, see SimServicesSettings"
         simSettings: SimServicesSettings,
         "Lifecycle phase SIM is currently in"
-        status: [String],
+        status: [SimState],
         "List of APNs assigned to the SIM with detailed information within" 
         apns: [NetworkSettings],
         "The time of SIM activation"
-        activationDate: OffsetDateTime, 
+        activationDate: String, 
         "Quantity of services usage resources, tied up together, see USAGEALLOWANCE"
-        usageAllowances: USAGEALLOWANCE, 
+        usageAllowances: UsageAllowance, 
         "SIM PIN1 code information"
         pin1: String,
         "SIM PIN2 code information"
@@ -496,4 +502,71 @@ module.exports = buildSchema(`
         name: String!
         address: installationLocationAddress!,
     }
+
+    type SimServicesSettings{
+        dataService: String,
+        smsMoService: String,
+        smsMtService: String,
+    }
+
+    type UsageAllowance{
+        name: String,
+        service: UsageServiceType,
+        bundleType: UbsageAllowanceType,
+        volume: BundleSize,
+        volumePrice: BigDecimal
+
+    }
+
+    type BundleSize{
+        dataBytes: Long,
+        dataDuration: Long,
+        dataSessions: Long,
+        smsCalls: Long,
+        voiceCalls: Long,
+        voiceDuration: Long
+    }
+
+    enum UsageAllowanceType{
+        Subscription,
+        ResourcePooled,
+        ResourceNotShared
+    }
+
+    enum SimCellularServiceState{
+        Blocked,
+        Disabled,
+        Enabled
+    }
+
+    enum SimState{
+        Test,
+        Live,
+        Sleep,
+        Terminated,
+        Inactive,
+        Archived,
+        Inventory,
+        TerminationReady,
+        TestReady
+    }
+
+    enum IpAllocationType{
+        Dynamic,
+        Static
+    }
+
+    enum UsageServiceType{
+        DataNational,
+        DataRoaming,
+        SmsMoDeliveryReceipt,
+        SmsMoInternational,
+        SmsMoNational,
+        SmsMoRoaming,
+        VoiceInRoaming,
+        VoiceInternational,
+        VoiceNational,
+        VoiceOutRoaming
+    }
+
 `);
