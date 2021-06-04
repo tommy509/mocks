@@ -434,14 +434,94 @@ module.exports = buildSchema(`
         puk2: String,
         "eSIM profile information"
         eProfile: Eprofile,
+        "SIM Roaming information for services, see RoamingSettings"
         roamingSettings: RoamingSettings,
+        "SIM usage information for services"
         usageInformation: UsageInformation,
+        "Address of sim where it is expected to be used"
         installLocation: InstallationLocationAdress,
+        "SIM last session details, see LastSessionDetails"
         lastSessionDetails: LastSessionDetails,
+        "Historical data about sim operations"
         simChangesRefs(paging: PagingInput): SimChangesConnection,
+        "Data related with usage charactiristics"
         allowances: AllowancesConnection,
+        "Data about sim"
         imeiInfo: ImeiInfo
        
+    }
+
+    type AllowancesConnection{
+        pageInfo: PageInfo!
+        edges: [AllowancesEdge!]!
+    }
+
+    type AllowancesEdge{
+        "Single instance of Allowances"
+        node: AllowanceDetails!
+        "Cursor string used for pagination"
+        cursor: String!
+        "Record position, CMP type Long"
+        cursorPosition: Float!
+        
+    }
+
+    type AllowanceDetails{
+        id: String!
+        serviceUsageType: ServiceType!
+        level: UsageAllowanceLevel!
+        "CMP type LocalDate"
+        validTo: String
+        subscriptionRef: AllowanceSubscription
+        lifecycleStage: ProductLifecycleStage!
+        periodicityType: PeriodicityType!
+        "CMP type BigDecimal"
+        price: Float!
+        activeSimsCount: Int
+        "CMP type LocalDate"
+        lastConsumptionDate: String 
+        consumptionState: AllowanceConsumptionState!
+    }
+
+    type AllowanceConsumptionState{
+        "CMP type Long"
+        currentSize: Float!,
+        "CMP type Long"
+        currentUsedSize: Float!,
+        "CMP type BigDecimal"
+        remainingCurrentSize: Float!,
+        "CMP type BigDecimal"
+        usedCurrentSizePercentage: Float!,
+        "CMP type Long"
+        nextRechargeSize: Float,
+        "CMP type BigDecimal"
+        nextRechargePrice: Float,
+        limitsUsage: [AllowanceLimitsUsage!]!
+    }
+
+    type  AllowanceLimitsUsage{
+        countryZones: [Int!]!,
+        "CMP type BigDecimal"
+        limitSizePercentage: Float!,
+        "CMP type BigDecimal"
+        limitSize: Float!,
+        "CMP type BigDecimal"
+        usedSize: Float!,
+        "CMP type BigDecimal"
+        usedSizePercentage: Float!
+    }
+
+    type AllowanceSubscription{
+        id: String!
+        "Valid ISOCurrency"
+        currency: String!
+        productSpecificationRef: AllowanceProductSpecification
+        name: String!
+    }
+
+    type AllowanceProductSpecification{
+        id: String!
+        iconName: String
     }
 
     type ImeiInfo{
@@ -471,6 +551,24 @@ module.exports = buildSchema(`
         
     }
 
+    type SimChangeDetails{
+        "Sim change identifier"
+        id: String!
+        "Sim identifier"
+        simId: String!
+        "Requested time of task execution"
+        requestedTime: String
+        "List of change types"
+        changeType: [SimChangeType!]!
+        "Current state of changes"
+        state: SimChangeState!
+        "Time of changes completion"
+        completionTime: String
+        "Time of changes creation"
+        creationTime: String
+        
+    }
+
     type LastSessionDetails{
         "Last session start date"
         startTime: String,
@@ -479,7 +577,7 @@ module.exports = buildSchema(`
         "Last session update time during active state"
         updateTime: String,
         "Last session location"
-        location: SessionLocation!,
+        location: sessionLocation!,
         "Data size sent during last session"
         upLink: Float,
         "Data size received during last session"
@@ -502,8 +600,8 @@ module.exports = buildSchema(`
         city: String!,
         "State"
         adminUnits: [String!],
-        "Country Code"
-        countryIso: ISOCountry!
+        "Country Code, CMP type ISOCountry"
+        countryIso: String!
     }
 
     type UsageInformation{
@@ -519,8 +617,10 @@ module.exports = buildSchema(`
     }
 
     type Eprofile{
-        eid: EID,
-        smSrId: SmSrId,
+        "CMP type EID"
+        eid: String,
+        "CMP type SmSrId"
+        smSrId: String,
         state: ESimState!,
         roles: [ESimRole!]!
     }
@@ -629,9 +729,10 @@ module.exports = buildSchema(`
     type UsageAllowance{
         name: String,
         service: UsageServiceType,
-        bundleType: UbsageAllowanceType,
+        bundleType: UsageAllowanceType,
         volume: BundleSize,
-        volumePrice: BigDecimal
+        "CMP type BigDecimal"
+        volumePrice: Float
 
     }
 
@@ -684,6 +785,80 @@ module.exports = buildSchema(`
         VoiceInternational,
         VoiceNational,
         VoiceOutRoaming
+    }
+
+    enum ESimState{
+        Available,
+        Assigned,
+        Enabled,
+        Disabled
+    }
+
+    enum ESimRole{
+        Provisioning,
+        Operational,
+        Fallback,
+        Emergency
+    }
+
+    enum SimChangeType{
+        Pending,
+        InProgress,
+        Completed,
+        Failed,
+        Cancelled
+    }
+
+    enum ServiceType{
+        ActiveSims,
+        PlatformApiAccess,
+        PlatformAccess,
+        GeolocationAccess,
+        GenericProduct,
+        PrivateApn,
+        PlatformReporting,
+        DataUsage,
+        VoiceUsage,
+        SmsUsage,
+        SimActivated,
+        SimTerminated,
+        SimInitialized,
+        SimEarlyTerminated,
+        PrivateApnActivated,
+        PlatformApiAccessActivated,
+        PlatformReportingActivated,
+        PlatformAccessActivated,
+        GeolocationAccessActivated,
+        GenericProductActivated,
+        SaleTransactionCompleted,
+        SimOrdered
+    }
+
+    enum UsageAllowanceLevel{
+        Subscription
+        ResourcePooled
+        ResourceNotShared
+    }
+
+    enum ProductLifecycleStage{
+        TestReady,
+        Test,
+        Inventory,
+        Live,
+        Sleep
+    }
+
+    enum PeriodicityType{
+        OneTime
+        Recurring
+    }
+
+    enum SimChangeState{
+        Pending,
+        InProgress,
+        Completed,
+        Failed,
+        Cancelled
     }
 
 `);
