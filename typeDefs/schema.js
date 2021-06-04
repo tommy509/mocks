@@ -69,13 +69,13 @@ module.exports = buildSchema(`
     type Mutation {
         """
         Change SIM state from Sleep To Live. Allowed move for simFinishSleep operation is from state Sleep to Live.
-        This function provides similar functionality as ???? in Jasper.
+        This function provides similar functionality as EditDeviceDetails in Jasper.
         """
         simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
 
         """
         Finish the test stage of a SIM Card. Allowed moves for simFinishTests operation is from state Test to Live or Sleep.
-        This function provides similar functionality as ???? in Jasper.
+        This function provides similar functionality as EditDeviceDetails in Jasper.
         """
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
 
@@ -110,14 +110,14 @@ module.exports = buildSchema(`
         simMoveToInventory(input: simImsiInput): simChangeStatus,
         """
         Set address for given sim where it is expected to be used. This function provides similar functionality
-        as ???? in Jasper.
+        as EditCustomerDetails in Jasper.
         """
         simInstallationAddress(input:simProfileLocationInput): simInstallationAddress,
         
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
 
         """
-        Apply restrictions to given SIM card. This function provides similar functionality as ???? in Jasper.
+        Apply restrictions to given SIM card. This function provides similar functionality as EditDeviceDetails/(RunawayDevices) in Jasper.
         """
         simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
 
@@ -145,7 +145,9 @@ module.exports = buildSchema(`
 
 
     input simRestrictionInput{
+        "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
         imsi: ID!,
+        "Restrictions to be processed for the given SIM"
         restrictions: [String!]!,
     }
 
@@ -261,6 +263,7 @@ module.exports = buildSchema(`
     }
 
     type simSessionHistory {
+        "Information about pagination in a connection."
         pageInfo: pageInfo,
         edges:[simSessionHistoryEdges]
     }
@@ -406,6 +409,7 @@ module.exports = buildSchema(`
 
 
     type simInstallationAddress {
+        "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1 "
         imsi: ID!,
         installLocation: installationLocationAddress!,
     }
@@ -415,10 +419,15 @@ module.exports = buildSchema(`
     }
 
   type installationLocationAddress {
+    "Address lines"
     addressLines: [String!]!,
+    "Postal code"
     postalCode: String!,
+    "City"
     city: String!,
+    "State"
     adminUnits: [String],
+    "Country Code"
     countryIso: String!,
   }
 
@@ -477,8 +486,11 @@ module.exports = buildSchema(`
     }
 
     type CustomerList {
+        "Sim change identifier"
         id: ID!,
+        "Sim identifier"
         name: String!
+        "Requested time of task execution"
         address: installationLocationAddress!,
     }
 `);
