@@ -77,7 +77,7 @@ module.exports = buildSchema(`
         Finish the test stage of a SIM Card. Allowed moves for simFinishTests operation is from state Test to Live or Sleep.
         This function provides similar functionality as EditDeviceDetails in Jasper.
         """
-        simFinishTests(imsi: ID!, serviceProfileId: String, stage: String): simFinish,
+        simFinishTests(imsi: ID!, serviceProfileId: String, stage: SimChangeType): simFinish,
 
         simActivate(input: simActivateInput): simActivate,
         """
@@ -148,7 +148,7 @@ module.exports = buildSchema(`
         "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
         imsi: ID!,
         "Restrictions to be processed for the given SIM"
-        restrictions: [String!]!,
+        restrictions: [SimRestriction!]!,
     }
 
     input simDetailsListInput{
@@ -366,7 +366,7 @@ module.exports = buildSchema(`
         completionTime: String,
         creationTime: String,
         changeType: [String],
-        state: String
+        state: SimChangeType
     }
 
     type simChangeStatus{
@@ -379,7 +379,7 @@ module.exports = buildSchema(`
         """List of change types"""
         changeType: [String],
         """Current state of changes. "Pending" for scheduled operation, "InProgres" for currently executing operation, "Complete" for executed operation, "Failed" for executed with error operation, and "Cancelled" for canceled scheduled operation."""
-        state: String,
+        state: SimChangeType,
         """Time of changes completion"""
         completionTime: String,
         """Time of changes creation"""
@@ -859,6 +859,13 @@ module.exports = buildSchema(`
         Completed,
         Failed,
         Cancelled
+    }
+
+    enum SimRestriction{
+        "Suspend when lost sim or device"
+        LostSim,
+        "Suspend in case when SIM is not working properly - customer wants to prevent generating unexpected costs so decides to block SIM"
+        Malfunction
     }
 
 `);
