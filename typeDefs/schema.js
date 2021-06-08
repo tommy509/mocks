@@ -105,7 +105,7 @@ module.exports = buildSchema(`
         
         """
 
-        simAddLabels(input:addLabelInput): simDetails,
+        simAddLabels(input:simLabelsInput!): SimLabelsChanges,
         """
         This function is used to assign a caption to a given sim. 
         
@@ -204,6 +204,17 @@ module.exports = buildSchema(`
         imsi: ID!,
         label: [String!]!,
     }
+    
+    input simLabelsInput{
+        """SIM IMSI Identifier"""
+        imsi: ID,
+        """SIM ICCID Identifier"""
+        iccid:ID,
+        """The label/labels that you want to modify."""
+        label: [String!]!,
+    }
+
+
     input addCaptionInput{
         imsi: ID!,
         name: String,
@@ -467,6 +478,13 @@ module.exports = buildSchema(`
         state: String,
         completionTime: String,
         creationTime: String, 
+      }
+
+      type SimLabelsChanges{
+        "The SIM IMSI Identifier"
+        imsi: ID!,   
+        "Actual SIM Labels"
+        labels: [String],
       }
 
     """ Represent a sim and its characteristics """
