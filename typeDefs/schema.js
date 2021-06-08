@@ -11,7 +11,7 @@ module.exports = buildSchema(`
         but it may depend on how much data stored in the system.This function provides similar functionality
         as GetDeviceDetails and GetTerminalDetails in Jasper.
         """
-        simList: [ simDetails ],
+        simList(input: SimListParametersInput):SimDetailsConnection,
 
         """
         Get complete information on the given SIM. This function provides similar functionality
@@ -125,7 +125,10 @@ module.exports = buildSchema(`
         """
         simApplyRestrictions(input: simRestrictionInput!): simChangeStatus,
 
-        simRemoveRestrictions(input: simRestrictionInput!): simChangeStatus,
+        """
+        Remove restrictions from given SIM card.
+        """ 
+        simRemoveRestrictions(input: simRestrictionInput!): SimChangeDetails,
 
         """
         Specify APNs (Access Point Names) which should be included to the defined set for the SIM.
@@ -140,14 +143,20 @@ module.exports = buildSchema(`
         """
         simConfigureApns(input: simAPNSettings): simChangeStatus,
         simTerminate(input: simImsiInput): simChangeStatus,
-        simConfigureExpectedImei(input: simConfigureExpectedImeiInput): simChangeStatus,
+
+        """
+        Specify device that SIM is expected to be used by.
+        """
+        simConfigureExpectedImei(input: simConfigureExpectedImeiInput): SimChangeDetails,
         """
         Specify Service Profile (SIM services configuration) for SIM.
         """
         simChangeServiceProfile(input: simChangeServiceProfileInput): simChangeStatus,
     }
 
-
+    """
+    Specify the imsi and the restrictions to attach it.
+    """
     input simRestrictionInput{
         "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
         imsi: ID!,
@@ -233,6 +242,49 @@ module.exports = buildSchema(`
         allocationType:String
     }
 
+    input SimListParametersInput{
+        "Paging parameters, see PagingInput"
+        pageInfo: PagingInput,     
+
+        "Identifier specifying service profile for which sim list should be fetched, CMP type ServiceProfileId"
+        serviceProfileId: String,
+        
+        "Specify statuses for which sim list should be filtered"
+        simStatus: [SimState!],
+        
+        "Specify label for which sim list should be filtered"
+        label: String,
+        
+        "Specify last time of modification and filter sims modified since that time, CMP type OffsetDateTime"
+        since: String,
+        
+        "Specify list of IMSIs for which sim list should be filtered"
+        imsis: [String!],
+        
+        "Specify list of ICCIDs for which sim list should be filtered"
+        iccids: [String!]
+        
+    }
+
+    type SimDetailsConnection{
+        "Shows information general about pagination"
+        pageInfo: PageInfo!
+        "Array of SimDetailsEdge, which include node, and its position in the paging "
+        edges: [SimsDetailsEdge!]!
+    }
+
+    type SimsDetailsEdge{
+        "Single instance of SimsDetails"
+        node: simDetails!
+        
+        "Cursor string used for pagination"
+        cursor: String!
+        
+        "Record position, CMP type Long"
+        cursorPosition: Float!
+        
+    }
+
     type  NetworkSettings{
         apnName: String,
         allocationType: IpAllocationType
@@ -244,9 +296,7 @@ module.exports = buildSchema(`
     type simDetailsListEdges{
         node:simSessionDetails,
        
-    }
-
-  
+    }  
  
     type simDetailsList{
         pageInfo: pageInfo,
@@ -281,13 +331,17 @@ module.exports = buildSchema(`
         node: simSessionDetails,
     }
 
-
     type businessUnit{
         id:ID,
         name:String
     }
+
+    """
+    Information about the sim.
+    """
     input simConfigureExpectedImeiInput {
         imsi: ID!,
+        iccid: String,
         imei: String!,
         imeiLock: Boolean!,
     }
@@ -555,6 +609,9 @@ module.exports = buildSchema(`
         
     }
 
+    """
+    Complete information about a sim change.
+    """ 
     type SimChangeDetails{
         "Sim change identifier"
         id: String!
