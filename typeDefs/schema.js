@@ -79,6 +79,10 @@ module.exports = buildSchema(`
         """
         simFinishTests(imsi: ID!, serviceProfileId: String, stage: SimChangeType): simFinish,
 
+        """
+        Activate given SIM card using provided settings. equivalente a su funcion en Jasper editdevicedetails 
+        """
+        
         simActivate(input: simActivateInput): simActivate,
         """
         This function is used to clear labels of a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
