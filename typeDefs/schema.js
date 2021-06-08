@@ -28,7 +28,7 @@ module.exports = buildSchema(`
         Retrieve information about the last session of a given SIM. This function provides similar functionality
         as GetSessionDetails in Jasper.
         """
-        simLastSessionDetails(imsi: ID!): simSessionDetails,
+        simLastSessionDetails(imsi: ID, iccid:ID): LastSessionDetails,
 
 
         """
@@ -320,6 +320,9 @@ module.exports = buildSchema(`
         
     
     }
+
+
+
 
     type simSessionHistory {
         "Information about pagination in a connection."
