@@ -98,14 +98,14 @@ module.exports = buildSchema(`
         This function is used to remove label(s) from a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
         
         """
-        simRemoveLabels(input:addLabelInput): simDetails,
+        simRemoveLabels(input:SimLabelsInput!): SimLabelsChanges,
 
         """
         This function is used to add a label to a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
         
         """
 
-        simAddLabels(input:simLabelsInput!): SimLabelsChanges,
+        simAddLabels(input:SimLabelsInput!): SimLabelsChanges,
         """
         This function is used to assign a caption to a given sim. 
         
@@ -205,7 +205,7 @@ module.exports = buildSchema(`
         label: [String!]!,
     }
     
-    input simLabelsInput{
+    input SimLabelsInput{
         """SIM IMSI Identifier"""
         imsi: ID,
         """SIM ICCID Identifier"""
