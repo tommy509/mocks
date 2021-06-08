@@ -88,7 +88,7 @@ module.exports = buildSchema(`
         This function is used to clear labels of a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
         
         """
-        simClearLabels(imsi: ID, iccid:ICCID): SimLabelsChanges,
+        simClearLabels(imsi: ID, iccid:ID): SimLabelsChanges,
         """
         This function is used to remove a caption from a given sim. 
         
@@ -110,7 +110,7 @@ module.exports = buildSchema(`
         This function is used to assign a caption to a given sim. 
         
         """
-        simAssignName(input:addCaptionInput): simAddLabelDetails,
+        simAssignCaption(input:SimAssignCaptionInput!):SimCaption,
         simMoveToInventory(input: simImsiInput): simChangeStatus,
         """
         Set address for given sim where it is expected to be used. This function provides similar functionality
@@ -215,9 +215,13 @@ module.exports = buildSchema(`
     }
 
 
-    input addCaptionInput{
-        imsi: ID!,
-        name: String,
+    input SimAssignCaptionInput{
+        """SIM IMSI Identifier"""
+        imsi: ID,
+        """SIM Iccid Identifier"""
+        iccid:ID,
+        """The caption to be assigned to SIM for more efficient management."""
+        caption: String!,
     }
 
     input instalationLocationAdressInput {
@@ -428,6 +432,14 @@ module.exports = buildSchema(`
     type simConnectionDetails {
         imsi: ID!,
         iccid: String!,
+    }
+
+
+    type SimCaption{
+        """SIM IMSI Identifier"""
+        imsi: ID!,
+        """The caption to be assigned to SIM for more efficient management."""
+        caption:String,
     }
 
     type simAddLabelDetails{
