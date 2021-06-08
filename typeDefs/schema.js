@@ -93,7 +93,7 @@ module.exports = buildSchema(`
         This function is used to remove a caption from a given sim. 
         
         """
-        simRemoveCaption(imsi: ID!): simAddLabelDetails,
+        simRemoveCaption(imsi: ID,iccid:ID): SimCaption,
         """
         This function is used to remove label(s) from a given sim. This function provides similar functionality as EditDeviceDetails in Jasper wich allows us to modify custom fields for a specified device.
         
