@@ -56,7 +56,7 @@ module.exports = buildSchema(`
         Return detailed information about one or more sms messages. This function provides similar functionality
         as GetSmsDetails in Jasper wich returns information about only one message sent by a device to the control center or from the control center to a device. Here we can get information about multiple messages at a time. 
         """
-        smsList(pageInfo: PagingInput,imsi: ID!,fromDate: String,toDate: String,smsIds: [String]):  SmsListOutput,
+        smsList(input:SmsListParametersInput):  SMSesConnection!,
         
         """
         Get information about Customer base on logged in user context. This function provides similar functionality
@@ -366,6 +366,18 @@ module.exports = buildSchema(`
         smsIds: [String],
     },
 
+    input SmsListParametersInput {
+        """Paging parameters, see PagingInput"""
+        pageInfo: PagingInput,
+        """Identifier specifying sim for which sms list should be fetched"""
+        smNotificationsIds: [String],
+        """Specify from which time to search SMSes for"""
+        fromDate: String,
+        """Specify until which time to search SMSes for"""
+        toDate: String,
+        """Specify on which SIM sms was sent"""
+        imsi: String       
+    },
     type simChangeList {
         """Information about pagination in a connection."""
         pageInfo: PageInfo!,
@@ -768,6 +780,11 @@ module.exports = buildSchema(`
         msgType: String,
         dateSent: String,
         dataReceived: String,
+    }
+
+    type SMSesConnection {
+        pageInfo: PageInfo!,
+        edges: [SmsesEdge!]!,
     }
 
     type SmsListOutput {
