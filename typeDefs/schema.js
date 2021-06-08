@@ -71,13 +71,13 @@ module.exports = buildSchema(`
         Change SIM state from Sleep To Live. Allowed move for simFinishSleep operation is from state Sleep to Live.
         This function provides similar functionality as EditDeviceDetails in Jasper.
         """
-        simFinishSleep(imsi: ID!, serviceProfileId: String): simFinish,
+        simFinishSleep(input: SimModifyStateInput!): simFinish,
 
         """
         Finish the test stage of a SIM Card. Allowed moves for simFinishTests operation is from state Test to Live or Sleep.
         This function provides similar functionality as EditDeviceDetails in Jasper.
         """
-        simFinishTests(imsi: ID!, serviceProfileId: String, stage: SimChangeType): simFinish,
+        simFinishTests(input: SimFinishTestsInput!): simFinish,
 
         """
         Activate given SIM card using provided settings. equivalente a su funcion en Jasper editdevicedetails 
@@ -455,13 +455,23 @@ module.exports = buildSchema(`
     }
 
     type simFinish {
-        imsi: Float,
+        "Sim change identifier. This field can beprovided to SIMCHANGESTATUS toget information about state of theoperation"
         id: String,
+        imsi: Float,
+        "Sim identifier"
         simId: String,
+        "Requested time of task execution"
         requestedTime: String,
+        "Time of changes completion"
         completionTime: String,
+        "Time of changes creation"
         creationTime: String,
-        changeType: [String],
+        "List of change types"
+        changeType: [SimChangeType!]!,
+        """
+        Current state of changes. "Pending" for scheduled operation, "InProgres" for currently executing operation,"Complete"
+        for executed operation, "Failed" for executed with error operation, and"Cancelled" for canceled scheduled operation.
+        """
         state: SimChangeType
     }
 
@@ -856,6 +866,22 @@ module.exports = buildSchema(`
         voiceDuration: Float
     }
 
+    type SimFinishTestsInput{
+        "The Long scalar typerepresents non-fractional signed wholenumeric values. Long can represent values between -(2^63) and 2^63 - 1."
+        imsi: ID!,
+        "The String scalar typerepresents textual data, represented asUTF-8 character sequences. The Stringtype is most often used by GraphQL torepresent free-form human-readable text."
+        serviceProfileId: String,
+        "Parameter specifyinglifecycle phase SIM should be in after testsfinished. Possible lifecycle phases are:Live, Sleep"
+        stage: TestsCompletedSimState
+    }
+    
+    type SimModifyStateInput{
+        "The Long scalar typerepresents non-fractional signed wholenumeric values. Long can represent valuesbetween -(2^63) and 2^63 - 1."
+        imsi: ID!,
+        "Parameter specifyingservice profile which is assigned to SIM"
+        serviceProfileId: String
+    }
+
     enum UsageAllowanceType{
         Subscription,
         ResourcePooled,
@@ -979,4 +1005,11 @@ module.exports = buildSchema(`
         Malfunction
     }
 
+    """
+    Enumeration values forTestsCompletedSimState
+    """
+    enum TestsCompletedSimState{
+        Live,
+        Sleep
+    }
 `);
