@@ -71,13 +71,13 @@ module.exports = buildSchema(`
         Change SIM state from Sleep To Live. Allowed move for simFinishSleep operation is from state Sleep to Live.
         This function provides similar functionality as EditDeviceDetails in Jasper.
         """
-        simFinishSleep(input:SimModifyStateInput): simFinishOutput,
+        simFinishSleep(input:SimModifyStateInput): SimChangeDetails,
 
         """
         Finish the test stage of a SIM Card. Allowed moves for simFinishTests operation is from state Test to Live or Sleep.
         This function provides similar functionality as EditDeviceDetails in Jasper.
         """
-        simFinishTests(input: SimFinishTestsInput!): simFinishOutput,
+        simFinishTests(input: SimFinishTestsInput!): SimChangeDetails,
 
         """
         Activate given SIM card using provided settings. equivalente a su funcion en Jasper editdevicedetails 
@@ -283,14 +283,18 @@ module.exports = buildSchema(`
 
     input SimModifyStateInput{
         "The Long scalar typerepresents non-fractional signed wholenumeric values. Long can represent valuesbetween -(2^63) and 2^63 - 1."
-        imsi: ID!,
+        imsi: IMSI!,
+        "SIM ICCID Identifier"
+        iccid: ICCID,
         "Parameter specifyingservice profile which is assigned to SIM"
         serviceProfileId: String
     }
 
     input SimFinishTestsInput{
         "The Long scalar typerepresents non-fractional signed wholenumeric values. Long can represent values between -(2^63) and 2^63 - 1."
-        imsi: ID!,
+        imsi: IMSI!,
+        "SIM ICCID Identifier"
+        iccid: ICCID
         "The String scalar typerepresents textual data, represented asUTF-8 character sequences. The Stringtype is most often used by GraphQL torepresent free-form human-readable text."
         serviceProfileId: String,
         "Parameter specifyinglifecycle phase SIM should be in after testsfinished. Possible lifecycle phases are:Live, Sleep"
@@ -471,38 +475,17 @@ module.exports = buildSchema(`
         businessUnit: String,
     }
 
-    type simFinishOutput {
-        "Sim change identifier. This field can beprovided to SIMCHANGESTATUS toget information about state of theoperation"
-        id: String,
-        imsi: Float,
-        "Sim identifier"
-        simId: String,
-        "Requested time of task execution"
-        requestedTime: String,
-        "Time of changes completion"
-        completionTime: String,
-        "Time of changes creation"
-        creationTime: String,
-        "List of change types"
-        changeType: [SimChangeType!]!,
-        """
-        Current state of changes. "Pending" for scheduled operation, "InProgres" for currently executing operation,"Complete"
-        for executed operation, "Failed" for executed with error operation, and"Cancelled" for canceled scheduled operation.
-        """
-        state: SimChangeType
-    }
-
     type simChangeStatus{
         """Sim change identifier"""
         id: String!,
         """Sim identifier"""
-        simId: String,
+        simId: String!,
         """Requested time of task execution"""
         requestedTime: String,
         """List of change types"""
-        changeType: [String],
+        changeType: [SimChangeType!]!,
         """Current state of changes. "Pending" for scheduled operation, "InProgres" for currently executing operation, "Complete" for executed operation, "Failed" for executed with error operation, and "Cancelled" for canceled scheduled operation."""
-        state: SimChangeType,
+        state: SimChangeState!,
         """Time of changes completion"""
         completionTime: String,
         """Time of changes creation"""
@@ -1053,6 +1036,9 @@ module.exports = buildSchema(`
         Cancelled
     }
 
+    """
+    Enumeration values for SimRestriction
+    """
     enum SimRestriction{
         "Suspend when lost sim or device"
         LostSim,
@@ -1067,4 +1053,14 @@ module.exports = buildSchema(`
         Live,
         Sleep
     }
+
+    """
+    Integrated Circuit Card Identifier - globally-unique number (electronic serial number) identifying SIM card.
+    """
+    scalar ICCID
+
+    """
+    International Mobile Subscriber Identity - a number that uniquely identifies every user of a cellular network.
+    """
+    scalar IMSI
 `);

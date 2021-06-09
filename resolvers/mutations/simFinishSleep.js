@@ -3,9 +3,9 @@ const { simChangeType } = require('../enums/')
 
 var resolvers = {
 
-    simFinishSleep: ({ imsi, serviceProfileId }) => {
+    simFinishSleep: ({ input: { imsi, iccid, serviceProfileId } }) => {
         console.log("simFinishSleep List: ", simFinishSleep);
-        console.log("imsi", imsi, serviceProfileId, "serviceProfileId");
+        console.log("imsi:", imsi, "iccid: ", iccid, "serviceProfileId: ", serviceProfileId);
 
         const simData = simFinishSleep.find(({ imsi }) => imsi === imsi);
         return { ...simData, changeType: [simChangeType.LIVESTARTED] }
