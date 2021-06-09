@@ -71,13 +71,13 @@ module.exports = buildSchema(`
         Change SIM state from Sleep To Live. Allowed move for simFinishSleep operation is from state Sleep to Live.
         This function provides similar functionality as EditDeviceDetails in Jasper.
         """
-        simFinishSleep(input:SimModifyStateInput): simFinish,
+        simFinishSleep(input:SimModifyStateInput): simFinishOutput,
 
         """
         Finish the test stage of a SIM Card. Allowed moves for simFinishTests operation is from state Test to Live or Sleep.
         This function provides similar functionality as EditDeviceDetails in Jasper.
         """
-        simFinishTests(input: SimFinishTestsInput!): simFinish,
+        simFinishTests(input: SimFinishTestsInput!): simFinishOutput,
 
         """
         Activate given SIM card using provided settings. equivalente a su funcion en Jasper editdevicedetails 
@@ -471,7 +471,7 @@ module.exports = buildSchema(`
         businessUnit: String,
     }
 
-    type simFinish {
+    type simFinishOutput {
         "Sim change identifier. This field can beprovided to SIMCHANGESTATUS toget information about state of theoperation"
         id: String,
         imsi: Float,
@@ -978,11 +978,26 @@ module.exports = buildSchema(`
     }
 
     enum SimChangeType{
-        Pending,
-        InProgress,
-        Completed,
-        Failed,
+        Pending
+        InProgress
+        Completed
+        Failed
         Cancelled
+        Activated
+        ApnChanged
+        CustomerUnitChanged
+        DataBlocked
+        DataUnblocked
+        EnableSimProfileChanged
+        ImeiLinked
+        ImeiLocked
+        ImeiUnlinked
+        ImeiUnlocked
+        LiveStarted
+        NetworkTechnologyChanged
+        PutToSleep
+        SmsIntBlocked
+        SmsIntUnblocked
     }
 
     enum ServiceType{
