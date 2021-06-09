@@ -15,6 +15,7 @@ const simChangeType = {
     IMEIUNLINKED: "ImeiUnlinked",
     IMEIUNLOCKED: "ImeiUnlocked",
     LIVESTARTED: "LiveStarted",
+    SLEEPSTARTED: "SleepStarted",
     NETWORKTECHNOLOGYCHANGED: "NetworkTechnologyChanged",
     PUTTOSLEEP: "PutToSleep",
     SMSINTBLOCKED: "SmsIntBlocked",

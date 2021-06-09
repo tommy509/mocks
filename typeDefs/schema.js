@@ -994,6 +994,7 @@ module.exports = buildSchema(`
         ImeiUnlinked
         ImeiUnlocked
         LiveStarted
+        SleepStarted
         NetworkTechnologyChanged
         PutToSleep
         SmsIntBlocked

@@ -1,7 +1,9 @@
 const simChangeType = require('./simChangeType');
+const testsCompletedSimState = require('./testsCompletedSimState');
 
 const models = {
-    simChangeType
+    simChangeType,
+    testsCompletedSimState,
 };
 
 module.exports = models;
