@@ -785,20 +785,32 @@ module.exports = buildSchema(`
     
 
     type PageInfo {
-        total: Float!,
+        """Total number of available results according to given query criteria"""
+        total(trackTotalHits: Boolean):Float,
+        """Indicated whether number of total hits are precise or estimated"""
         totalRelation: String!,
+        """Number of records in given page"""
         size: Int!,
+        """When paginating forwards, are there more items?"""
         hasNextPage: Boolean!,
+        """When paginating backwards, are there more items?"""
         hasPreviousPage: Boolean!,
+        """When paginating backwards, the cursor to continue."""
         startCursor: String,
+        """Numerical position of the first record returned"""
         startPosition: Float,
+        """When paginating forwards, the cursor to continue."""
         endCursor: String,
+        """Numerical position of the first record returned"""
         endPosition: Float,
     }
     
     type SmsesEdge {
-        node: SmsDetails!,
+        """Single instance of SMSes"""
+        node: SmsListInfo!,
+        """Cursor string used for pagination"""
         cursor: String!,
+        """Record Position"""
         cursorPosition: Float!,
     }
     
@@ -811,6 +823,32 @@ module.exports = buildSchema(`
         dateSent: String,
         dataReceived: String,
     }
+
+
+    type SmsListInfo {
+        """Identifier specifying which sms should be fetched"""
+        id: String,
+        """Identifier specifying the beginning of the time frame for sms search inside it"""
+        targetAddress: String,
+        """Identifier specifying the end of the time frame for sms search inside it"""
+        sourceAddress: String,
+        """Time when message was submitted for sending"""
+        submittedDate: String,
+        """Time the message was sent"""
+        sentDate: String,
+        """Time when message was delivered to target"""
+        deliveredDate: String,
+        """Content of SMS"""
+        content:SmsContent
+    }
+
+    type SmsContent{
+        """Format of message"""
+        format:String,
+        """Content of SMS"""
+        content:String
+    }
+
 
     type SMSesConnection {
         pageInfo: PageInfo!,
