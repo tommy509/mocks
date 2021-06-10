@@ -386,9 +386,13 @@ module.exports = buildSchema(`
     }
 
     input PagingInput{
+        """When paginating backwards, the cursor of first record returned."""
         before: String,
+        """When paginating forwards, the cursor of first record returned."""
         after: String,
+        """Numerical position of the first record returned."""
         first: Int,
+        """Numerical position of the last record returned."""
         last: Int,
         offset: Int,
         limit: Int,
@@ -406,7 +410,7 @@ module.exports = buildSchema(`
         """Paging parameters, see PagingInput"""
         pageInfo: PagingInput,
         """Identifier specifying sim for which sms list should be fetched"""
-        smNotificationsIds: [String],
+        smNotificationsIds: [String!],
         """Specify from which time to search SMSes for"""
         fromDate: String,
         """Specify until which time to search SMSes for"""
@@ -794,11 +798,12 @@ module.exports = buildSchema(`
     }
     
 
+
     type PageInfo {
         """Total number of available results according to given query criteria"""
         total(trackTotalHits: Boolean):Float,
         """Indicated whether number of total hits are precise or estimated"""
-        totalRelation: String!,
+        totalRelation:TotalRelation!,
         """Number of records in given page"""
         size: Int!,
         """When paginating forwards, are there more items?"""
@@ -837,28 +842,33 @@ module.exports = buildSchema(`
 
     type SmsListInfo {
         """Identifier specifying which sms should be fetched"""
-        id: String,
+        id: String!,
         """Identifier specifying the beginning of the time frame for sms search inside it"""
-        targetAddress: String,
+        targetAddress: String!,
         """Identifier specifying the end of the time frame for sms search inside it"""
-        sourceAddress: String,
+        sourceAddress: String!,
         """Time when message was submitted for sending"""
-        submittedDate: String,
+        submittedDate: String!,
         """Time the message was sent"""
-        sentDate: String,
+        sentDate: String!,
         """Time when message was delivered to target"""
-        deliveredDate: String,
+        deliveredDate: String!,
         """Content of SMS"""
-        content:SmsContent
+        content:[SmsContent!]!
     }
 
     type SmsContent{
         """Format of message"""
-        format:String,
+        format:MessageNotificationFormat!,
         """Content of SMS"""
         content:String
     }
 
+    enum MessageNotificationFormat{
+        PlainText,
+        BinaryHex,
+        Html
+         }
 
     type SMSesConnection {
         pageInfo: PageInfo!,
@@ -932,6 +942,11 @@ module.exports = buildSchema(`
         Dynamic,
         Static
     }
+
+    enum TotalRelation{
+        Eq,
+        GTe
+         }
 
     enum UsageServiceType{
         DataNational,
