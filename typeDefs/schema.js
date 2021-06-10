@@ -349,7 +349,7 @@ module.exports = buildSchema(`
         startTime:String!,
         endTime:String,
         updateTime:String,
-        location:sessionLocation,
+        location:SessionLocation,
         upLink:Int,
         downLink:Int,
         imei:Float,
@@ -697,7 +697,7 @@ module.exports = buildSchema(`
         "Last session update time during active state"
         updateTime: String,
         "Last session location"
-        location: sessionLocation!,
+        location: SessionLocation!,
         "Data size sent during last session"
         upLink: Float,
         "Data size received during last session"
@@ -782,12 +782,15 @@ module.exports = buildSchema(`
         name: String
     }
 
-    type sessionLocation{
-        id: ID!
-        mcc: Int,
+    type SessionLocation{
+        """Mobile Country Code"""
+        mcc: Int!,
+        """Mobile Network Code"""
         mnc: Int,
+        """Location Area Code"""
         lac: Int,
-        cell: Int
+        """Cell identifier"""
+        ecid:Int
     }
 
     type SmsSendOutput{
