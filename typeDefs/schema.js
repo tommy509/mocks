@@ -35,7 +35,7 @@ module.exports = buildSchema(`
         Retrieve session history for a given SIM. This function provides similar functionality
         as GetSessionDetails in Jasper.
         """
-        simSessionHistory(input: sessionHistoryParametersInput!): simSessionHistory,
+        simSessionHistory(input: sessionHistoryParametersInput!): SessionUsagePortionsConnection,
         
         """
         Get SIM change operation status for given SIM change identifier. This function provides similar functionality
@@ -179,8 +179,12 @@ module.exports = buildSchema(`
 
     input sessionHistoryParametersInput{
         imsi: ID!, 
-        timeFrame: timeFrameInput,
+        "SIM ICCID Identifier"
+        iccid: ICCID,
+        "Paging parameters, see Paging"
         pageInfo: PagingInput
+        "Time frame parameters, see TimeFrame"
+        timeFrame: timeFrameInput,
 
     }
 
@@ -338,7 +342,7 @@ module.exports = buildSchema(`
         total:Int,
     }
     type simDetailsListEdges{
-        node:simSessionDetails,
+        node: SessionUsagePortion,
        
     }  
  
@@ -348,7 +352,7 @@ module.exports = buildSchema(`
 
     }
 
-    type simSessionDetails{
+    type SessionUsagePortion{
         imsi:ID!
         iccid:String,
         caption:String,
@@ -361,21 +365,19 @@ module.exports = buildSchema(`
         upLink:Int,
         downLink:Int,
         imei:Float,
-        
-    
     }
 
 
 
 
-    type simSessionHistory {
+    type SessionUsagePortionsConnection {
         "Information about pagination in a connection."
         pageInfo: pageInfo,
         edges:[simSessionHistoryEdges]
     }
 
     type simSessionHistoryEdges {
-        node: simSessionDetails,
+        node: SessionUsagePortion,
     }
 
     type businessUnit{
