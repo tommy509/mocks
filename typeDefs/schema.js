@@ -116,7 +116,7 @@ module.exports = buildSchema(`
         Set address for given sim where it is expected to be used. This function provides similar functionality
         as EditCustomerDetails in Jasper.
         """
-        simInstallationAddress(input:simProfileLocationInput): simInstallationAddress,
+        simInstallationAddress(input:SimProfileLocationInput!): SimProfileLocation,
         
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
 
@@ -239,7 +239,7 @@ module.exports = buildSchema(`
         countryIso: ISOCountry!,
     }
 
-    input simProfileLocationInput {
+    input SimProfileLocationInput {
         imsi: ID!,
         "Address of simwhere it is expected to be used"
         installLocation: instalationLocationAdressInput!,
@@ -762,7 +762,7 @@ module.exports = buildSchema(`
         voiceRoaming: SimCellularServiceState
     }
 
-    type simInstallationAddress {
+    type SimProfileLocation {
         "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1 "
         imsi: ID!,
         installLocation: installationLocationAddress!,
