@@ -160,6 +160,8 @@ module.exports = buildSchema(`
     input simRestrictionInput{
         "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
         imsi: ID!,
+        "SIM ICCID Identifier"
+        iccid: ICCID,
         "Restrictions to be processed for the given SIM"
         restrictions: [SimRestriction!]!,
     }
