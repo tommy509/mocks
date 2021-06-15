@@ -1,4 +1,5 @@
 var axios = require('axios');
+const https = require('https');
 require('dotenv').config();
 var qs = require('qs');
 var auth_url= process.env.AUTH_URL;
@@ -16,8 +17,21 @@ const headers = {
 
 
 
+
+// At instance level
+const instance = axios.create({
+  httpsAgent: new https.Agent({  
+    rejectUnauthorized: false
+  })
+});
+
+
+
+
+
+
 function getToken() {
-  const promise = axios.post(auth_url, data, {
+  const promise =instance.post(auth_url, data, {
     headers: headers
   });
   const dataPromise = promise
@@ -30,8 +44,7 @@ return res.data.access_token;
   return dataPromise
 }
 
-
-
+ 
 
 module.exports = {getToken,endpoint};
 

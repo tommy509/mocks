@@ -1,4 +1,5 @@
 var axios = require('axios');
+const https = require('https');
 const configuration = require("./config");
 configuration.getToken()
   .then(token => {
@@ -18,9 +19,15 @@ configuration.getToken()
         variables: {}
       });
     //ACCESS TO API-CLAROCONNECT
+    
+// At request level
+const agent = new https.Agent({  
+  rejectUnauthorized: false
+});
     let config = {
       method: 'post',
       url:configuration.endpoint,
+      httpsAgent: agent ,
       headers: { 
         'Authorization':'Bearer '+token, 
         'Content-Type': 'application/json'
