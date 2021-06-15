@@ -1,6 +1,6 @@
 var axios = require('axios');
-const configuration = require("./config");
-
+const configuration = require("../config");
+const https = require('https');
 configuration.getToken()
   .then(token => {
     //QUERY OR MUTATION
@@ -27,9 +27,14 @@ configuration.getToken()
     });
     
     //ACCESS TO API-CLAROCONNECT
+// At request level
+const agent = new https.Agent({  
+  rejectUnauthorized: false
+});
     let config = {
       method: 'post',
-      url: configuration.endpoint,
+      url:configuration.endpoint,
+      httpsAgent: agent ,
       headers: { 
         'Authorization':'Bearer '+token, 
         'Content-Type': 'application/json'
