@@ -35,7 +35,7 @@ module.exports = buildSchema(`
         Retrieve session history for a given SIM. This function provides similar functionality
         as GetSessionDetails in Jasper.
         """
-        simSessionHistory(input: sessionHistoryParametersInput!): simSessionHistory,
+        simSessionHistory(input: sessionHistoryParametersInput!): SessionUsagePortionsConnection,
         
         """
         Get SIM change operation status for given SIM change identifier. This function provides similar functionality
@@ -116,7 +116,7 @@ module.exports = buildSchema(`
         Set address for given sim where it is expected to be used. This function provides similar functionality
         as EditCustomerDetails in Jasper.
         """
-        simInstallationAddress(input:simProfileLocationInput): simInstallationAddress,
+        simInstallationAddress(input:SimProfileLocationInput!): SimProfileLocation,
         
         smsSend(imsi: ID!, message: String!, messageValidityPeriod: String, messageEncoding: String): SmsSendOutput,
 
@@ -160,6 +160,8 @@ module.exports = buildSchema(`
     input simRestrictionInput{
         "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
         imsi: ID!,
+        "SIM ICCID Identifier"
+        iccid: ICCID,
         "Restrictions to be processed for the given SIM"
         restrictions: [SimRestriction!]!,
     }
@@ -177,8 +179,12 @@ module.exports = buildSchema(`
 
     input sessionHistoryParametersInput{
         imsi: ID!, 
-        timeFrame: timeFrameInput,
+        "SIM ICCID Identifier"
+        iccid: ICCID,
+        "Paging parameters, see Paging"
         pageInfo: PagingInput
+        "Time frame parameters, see TimeFrame"
+        timeFrame: timeFrameInput,
 
     }
 
@@ -225,15 +231,21 @@ module.exports = buildSchema(`
     }
 
     input instalationLocationAdressInput {
+        "Address lines"
         addressLines: [String!]!,
+        "Postal code"
         postalCode: String!,
+        "City"
         city: String!,
+        "State"
         adminUnits: [String],
-        countryIso: String!,
+        "Country Code"
+        countryIso: ISOCountry!,
     }
 
-    input simProfileLocationInput {
+    input SimProfileLocationInput {
         imsi: ID!,
+        "Address of simwhere it is expected to be used"
         installLocation: instalationLocationAdressInput!,
     }
 
@@ -330,7 +342,7 @@ module.exports = buildSchema(`
         total:Int,
     }
     type simDetailsListEdges{
-        node:simSessionDetails,
+        node: SessionUsagePortion,
        
     }  
  
@@ -340,7 +352,7 @@ module.exports = buildSchema(`
 
     }
 
-    type simSessionDetails{
+    type SessionUsagePortion{
         imsi:ID!
         iccid:String,
         caption:String,
@@ -353,21 +365,19 @@ module.exports = buildSchema(`
         upLink:Int,
         downLink:Int,
         imei:Float,
-        
-    
     }
 
 
 
 
-    type simSessionHistory {
+    type SessionUsagePortionsConnection {
         "Information about pagination in a connection."
         pageInfo: pageInfo,
         edges:[simSessionHistoryEdges]
     }
 
     type simSessionHistoryEdges {
-        node: simSessionDetails,
+        node: SessionUsagePortion,
     }
 
     type businessUnit{
@@ -754,7 +764,7 @@ module.exports = buildSchema(`
         voiceRoaming: SimCellularServiceState
     }
 
-    type simInstallationAddress {
+    type SimProfileLocation {
         "The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1 "
         imsi: ID!,
         installLocation: installationLocationAddress!,
@@ -1070,6 +1080,263 @@ module.exports = buildSchema(`
     enum TestsCompletedSimState{
         Live,
         Sleep
+    }
+
+    """
+    Enumeration valuesfor ISOCountry
+    """
+    enum ISOCountry{
+        CV
+        MA
+        AO
+        VN
+        IN
+        KW
+        ML
+        ID
+        JE
+        HM
+        EG
+        BG
+        SG
+        SV
+        BD
+        TC
+        TH
+        AT
+        GQ
+        TR
+        HT
+        UM
+        MH
+        MY
+        RU
+        NI
+        BZ
+        KP
+        VE
+        IL
+        GD
+        GI
+        TN
+        DM
+        MO
+        PR
+        NF
+        TW
+        KN
+        PH
+        WF
+        JO
+        ME
+        ES
+        AZ
+        MR
+        SM
+        BL
+        PK
+        NZ
+        GP
+        NA
+        JM
+        AX
+        CM
+        US
+        GU
+        SB
+        MV
+        SI
+        CW
+        BH
+        AN
+        VG
+        HK
+        SD
+        AD
+        RO
+        LU
+        VC
+        FO
+        GL
+        BW
+        CF
+        CI
+        KG
+        BV
+        KY
+        LY
+        MM
+        MZ
+        IR
+        EH
+        IQ
+        BB
+        SZ
+        IE
+        FK
+        NP
+        BE
+        AU
+        TZ
+        UY
+        SA
+        ZW
+        MD
+        HU
+        PG
+        AF
+        MU
+        SL
+        GT
+        BO
+        TM
+        NE
+        CL
+        FI
+        MN
+        NO
+        GG
+        EE
+        KM
+        LT
+        ER
+        SH
+        SY
+        LC
+        CC
+        PL
+        CH
+        ST
+        NG
+        TF
+        KI
+        LV
+        UG
+        CY
+        MW
+        CG
+        MF
+        PM
+        IS
+        BI
+        TK
+        SE
+        AE
+        KZ
+        LB
+        AR
+        GS
+        BF
+        DJ
+        BA
+        SJ
+        FR
+        GM
+        HR
+        BS
+        RS
+        WS
+        GB
+        LS
+        UZ
+        PF
+        AG
+        GW
+        FJ
+        CO
+        ZM
+        AQ
+        GF
+        NU
+        BN
+        RW
+        PT
+        SO
+        MT
+        PW
+        KH
+        SX
+        TJ
+        KR
+        SS
+        PY
+        AM
+        MC
+        CX
+        TT
+        UA
+        LI
+        BR
+        PA
+        MQ
+        NR
+        PN
+        GA
+        TG
+        FM
+        GN
+        YT
+        CD
+        MG
+        AI
+        YE
+        HN
+        IT
+        RE
+        DO
+        IO
+        GR
+        AS
+        ZA
+        GY
+        BY
+        LK
+        BT
+        OM
+        CK
+        KE
+        CZ
+        GH
+        MX
+        SK
+        MK
+        DZ
+        QA
+        CU
+        BJ
+        LA
+        TL
+        DK
+        VI
+        NL
+        CA
+        BM
+        JP
+        AW
+        TO
+        CN
+        VU
+        AL
+        ET
+        IM
+        SN
+        PE
+        BQ
+        XK
+        NC
+        MP
+        GE
+        CR
+        VA
+        PS
+        EC
+        TV
+        LR
+        MS
+        TD
+        SC
+        DE
+        SR
     }
 
     """
