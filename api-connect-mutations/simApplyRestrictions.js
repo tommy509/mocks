@@ -1,6 +1,6 @@
  var axios = require('axios');
 const https = require('https');
-const configuration = require("./config");
+const configuration = require("../config");
 configuration.getToken()
   .then(token => {
     //QUERY OR MUTATION
