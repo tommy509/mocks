@@ -152,6 +152,12 @@ module.exports = buildSchema(`
         Specify Service Profile (SIM services configuration) for SIM.
         """
         simChangeServiceProfile(input: simChangeServiceProfileInput): simChangeStatus,
+
+        """
+        Forces a device off the network, causing it to re-register.
+        This function provides similar functionality as InterSPResetSrcSim in Jasper.
+        """
+        simReset(input: SimResetInput!): SimResetOutput,
     }
 
     """
@@ -311,6 +317,11 @@ module.exports = buildSchema(`
         serviceProfileId: String,
         "Parameter specifyinglifecycle phase SIM should be in after testsfinished. Possible lifecycle phases are:Live, Sleep"
         stage: TestsCompletedSimState
+    }
+
+    input SimResetInput{
+        "SIM  IMSI  Identifier"
+        imsi: IMSI!,
     }
 
 
@@ -925,6 +936,23 @@ module.exports = buildSchema(`
         smsCalls: Float,
         voiceCalls: Float,
         voiceDuration: Float
+    }
+
+    type SimResetOutput{
+        "Sim change identifier. This field can be provided to SIMCHANGESTATUS to get information about state of the operation"
+        id: String!,
+        "Sim identifier"
+        simId: String!,
+        "Requested timeof task execution"
+        requestedTime: String,
+        "List of changetypes"
+        changeType: [SimChangeType!]!,
+        "Current state of changes. 'Pending' for scheduled operation, 'InProgres' for currently executing operation, 'Complete' for executed operation, 'Failed' for executed with error operation, and 'Cancelled' for canceled scheduled operation."
+        state: SimChangeState!,
+        "Time of changes completion"
+        completionTime: String,
+        "Time of changes creation"
+        creationTime: String,
     }
     
     enum UsageAllowanceType{

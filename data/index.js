@@ -11,6 +11,7 @@ const smsList = require('./smsList');
 const customerList = require('./customerList')
 const serviceProfileList = require('./serviceProfileList')
 const businessUnits = require('./businessUnits')
+const simResetList = require('./simReset')
 
 const models = {
 
@@ -25,8 +26,8 @@ const models = {
     smsSend,
     smsList,
     customerList,
-    businessUnits:businessUnits,
+    businessUnits: businessUnits,
     serviceProfileList,
-
+    simResetList,
 };
 module.exports = models;

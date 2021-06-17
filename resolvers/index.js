@@ -23,6 +23,7 @@ const serviceProfileListResolvers = require('./queries/serviceProfileList');
 const apnSettingsResolvers = require('./mutations/simAPNSettings');
 const simConfigureExpectedImeiResolvers = require('./mutations/simConfigureExpectedImei');
 const simChangeServiceProfileResolvers = require('./mutations/simChangeServiceProfile')
+const simResetResolvers = require('./mutations/simReset')
 
 module.exports = {
 
@@ -51,8 +52,9 @@ module.exports = {
         serviceProfileList: serviceProfileListResolvers.serviceProfileList,
         simAssignApns: apnSettingsResolvers.simAssignApns,
         simUnAssignApns: apnSettingsResolvers.simUnAssignApns,
-        simConfigureApns:apnSettingsResolvers.simConfigureApns,
+        simConfigureApns: apnSettingsResolvers.simConfigureApns,
         simTerminate: simTerminateResolvers.simTerminate,
         simConfigureExpectedImei: simConfigureExpectedImeiResolvers.simConfigureExpectedImei,
         simChangeServiceProfile: simChangeServiceProfileResolvers.simChangeServiceProfile,
+        simReset: simResetResolvers.simReset,
 }
