@@ -154,10 +154,10 @@ module.exports = buildSchema(`
         simChangeServiceProfile(input: simChangeServiceProfileInput): simChangeStatus,
 
         """
-        Forces a device off the network, causing it to re-register.
+        Forces a device off the network, causing it to re-register. Commonly used to correct network registration problems.
         This function provides similar functionality as InterSPResetSrcSim in Jasper.
         """
-        simReset(input: SimResetInput!): SimResetOutput,
+        simReset(input: SimResetInput!): SimResetChange,
     }
 
     """
@@ -322,6 +322,8 @@ module.exports = buildSchema(`
     input SimResetInput{
         "SIM  IMSI  Identifier"
         imsi: IMSI!,
+        "SIM ICCID Identifier"
+        iccid: ICCID,
     }
 
 
@@ -938,21 +940,15 @@ module.exports = buildSchema(`
         voiceDuration: Float
     }
 
-    type SimResetOutput{
+    type SimResetChange{
         "Sim change identifier. This field can be provided to SIMCHANGESTATUS to get information about state of the operation"
         id: String!,
         "Sim identifier"
         simId: String!,
-        "Requested timeof task execution"
-        requestedTime: String,
-        "List of changetypes"
-        changeType: [SimChangeType!]!,
         "Current state of changes. 'Pending' for scheduled operation, 'InProgres' for currently executing operation, 'Complete' for executed operation, 'Failed' for executed with error operation, and 'Cancelled' for canceled scheduled operation."
         state: SimChangeState!,
         "Time of changes completion"
         completionTime: String,
-        "Time of changes creation"
-        creationTime: String,
     }
     
     enum UsageAllowanceType{
