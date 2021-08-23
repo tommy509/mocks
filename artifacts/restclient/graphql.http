@@ -1,0 +1,29 @@
+@protocol = http
+@domain = localhost
+@port = 5000
+@host = {{protocol}}://{{domain}}:{{port}}
+
+##########################################################
+# @name codeGrant
+
+POST {{host}}/login
+Content-Type: application/json
+
+{
+    "email": "nitaicharan@gmail.com",
+    "password": "test123"
+}
+
+
+###
+POST http://localhost:3333/code-grant?
+&response_type=code
+&client_id=8b29078c-370b-4e1d-9efd-ab95d2ab7bde
+&redirect_uri=http://localhost:5000/checkCode
+&state=REQUIRED
+Content-Type: application/json
+
+{
+    "email": "nitaicharan@gmail.com",
+    "password": "test123"
+}
