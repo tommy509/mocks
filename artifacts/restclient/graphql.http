@@ -27,3 +27,8 @@ Content-Type: application/json
     "email": "nitaicharan@gmail.com",
     "password": "test123"
 }
+
+###
+
+POST {{host}}/checkCode
+Content-Type: application/json

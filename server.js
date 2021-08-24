@@ -17,13 +17,21 @@ app.get('/graphql', graphqlHTTP({
 }));
 
 app.post('/login', (req, res) => {
-  const url = new urlModule.URL('http://localhost:3333/code-grant');
+  const redirectUrl = new URL('http://google.com');
+
+  const url = new urlModule.URL('http://localhost:5000/checkCode');
   url.searchParams.append('response_type', 'code');
   url.searchParams.append('client_id', '8b29078c-370b-4e1d-9efd-ab95d2ab7bde');
-  url.searchParams.append('redirect_uri', 'http://localhost:5000/checkCode');
+  url.searchParams.append('redirect_uri', url);
   url.searchParams.append('state', 'REQUIRED');
 
   res.redirect(307, url);
+})
+
+app.post('/checkCode', (req, res) => {
+  
+  console.log("AAccessing endpoint CheckCode")
+
 })
 
 const PORT = 5000;
