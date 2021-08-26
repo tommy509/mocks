@@ -9,6 +9,7 @@
 POST {{host}}/login
 Content-Type: application/json
 
+
 {
     "email": "nitaicharan@gmail.com",
     "password": "test123"
@@ -17,7 +18,7 @@ Content-Type: application/json
 ###
 POST http://localhost:3333/code-grant?
 &response_type=code
-&client_id=8b29078c-370b-4e1d-9efd-ab95d2ab7bde
+&client_id=5a6268b6-635e-44e9-bf4b-55bc8b6bb2fa
 &redirect_uri=http://localhost:5000/checkCode
 &state=REQUIRED
 Content-Type: application/json
@@ -29,5 +30,6 @@ Content-Type: application/json
 
 ###
 
-POST {{host}}/checkCode
+GET {{host}}/graphql?
+&access-code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlR3JhbnQiOiIwNGU1OTBmMi00OWYxLTRiZWMtYTA2YS02MTVmZjIwZGVkZTQiLCJpYXQiOjE2Mjk5OTM1MzQsImV4cCI6MTYzMDA3OTkzNH0.3Ay3GsygbMLhszOQ138xl7kHrrRIDal9MulzAzhfSSQ
 Content-Type: application/json
