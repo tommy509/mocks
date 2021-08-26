@@ -15,11 +15,23 @@ app.use('/graphql', verifyToken, graphqlHTTP({
   graphiql: true,
 }));
 
-app.post('/login', (req, res) => {
+app.post('/loginCodeGrant', (req, res) => {
   const url = new urlModule.URL('http://localhost:3333/code-grant');
   const redirectUrl = new urlModule.URL('http://localhost:5000/checkCode');
 
   url.searchParams.append('response_type', 'code');
+  url.searchParams.append('client_id', '5a6268b6-635e-44e9-bf4b-55bc8b6bb2fa');
+  url.searchParams.append('redirect_uri', redirectUrl);
+  url.searchParams.append('state', 'REQUIRED');
+
+  res.redirect(307, url);
+})
+
+app.post('/loginImplicitGrant', (req, res) => {
+  const url = new urlModule.URL('http://localhost:3333/implicit-grant');
+  const redirectUrl = new urlModule.URL('http://localhost:5000/getToken');
+
+  url.searchParams.append('response_type', 'token');
   url.searchParams.append('client_id', '5a6268b6-635e-44e9-bf4b-55bc8b6bb2fa');
   url.searchParams.append('redirect_uri', redirectUrl);
   url.searchParams.append('state', 'REQUIRED');
@@ -41,7 +53,7 @@ app.post('/checkCode', (req, res) => {
 })
 
 app.post('/getToken', (req, res) => {
-  res.send({code: req.query.access_token})
+  res.send({code: req.query})
 })
 
 const PORT = 5000;

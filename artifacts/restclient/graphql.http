@@ -6,7 +6,7 @@
 ##########################################################
 # @name codeGrant
 
-POST {{host}}/login
+POST {{host}}/loginCodeGrant
 Content-Type: application/json
 
 
@@ -15,6 +15,17 @@ Content-Type: application/json
     "password": "test123"
 }
 
+##########################################################
+# @name implicitGrant
+
+POST {{host}}/loginImplicitGrant
+Content-Type: application/json
+
+
+{
+    "email": "nitaicharan@gmail.com",
+    "password": "test123"
+}
 ###
 POST http://localhost:3333/code-grant?
 &response_type=code
