@@ -26,6 +26,7 @@ Content-Type: application/json
     "email": "nitaicharan@gmail.com",
     "password": "test123"
 }
+
 ###
 POST http://localhost:3333/code-grant?
 &response_type=code
@@ -41,6 +42,11 @@ Content-Type: application/json
 
 ###
 
-GET {{host}}/graphql?
-&access-code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlR3JhbnQiOiIwNGU1OTBmMi00OWYxLTRiZWMtYTA2YS02MTVmZjIwZGVkZTQiLCJpYXQiOjE2Mjk5OTM1MzQsImV4cCI6MTYzMDA3OTkzNH0.3Ay3GsygbMLhszOQ138xl7kHrrRIDal9MulzAzhfSSQ
+POST {{host}}/checkToken?
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiM2RlY2JhZTItYzAwYy00MTU0LWFkYzItY2M1YjViMmZhMjVmIiwiaWF0IjoxNjMwMzM4MDIxLCJleHAiOjE2MzA0MjQ0MjF9.gcDkTAlEKkLQ7vHrYi2ErcvF55rYdx8ir_Kr2ez6Mj8
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlR3JhbnQiOiIwNGU1OTBmMi00OWYxLTRiZWMtYTA2YS02MTVmZjIwZGVkZTQiLCJpYXQiOjE2MzAzMzcwOTUsImV4cCI6MTYzMDQyMzQ5NX0.P_i3BppoGJpxnM0cJOLZJRnokGGOA3mA95Uiq8K2ms0"
+}
+

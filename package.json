@@ -12,6 +12,7 @@
     "follow-redirects": "^1.14.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.4",
+    "opn": "^6.0.0",
     "react": "^17.0.2"
   },
   "devDependencies": {
