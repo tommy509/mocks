@@ -24,7 +24,7 @@ app.post('/loginCodeGrant', (req, res) => {
   const redirectUrl = new urlModule.URL('http://localhost:5000/checkCode');
 
   url.searchParams.append('response_type', 'code');
-  url.searchParams.append('client_id', '5a6268b6-635e-44e9-bf4b-55bc8b6bb2fa');
+  url.searchParams.append('client_id', '47f9d065-e457-4b87-8ed8-a6bade87755a');
   url.searchParams.append('redirect_uri', redirectUrl);
   url.searchParams.append('state', 'REQUIRED');
 
@@ -38,8 +38,8 @@ app.post('/checkCode', (req, res) => {
 
   url.searchParams.append('grant_type', 'authorization_code');
   url.searchParams.append('code', req.query.code);
-  url.searchParams.append('client_id', '5a6268b6-635e-44e9-bf4b-55bc8b6bb2fa');
-  url.searchParams.append('client_secret', '27fd83d7-9663-493b-8806-1e93ee16c484');
+  url.searchParams.append('client_id', '47f9d065-e457-4b87-8ed8-a6bade87755a');
+  url.searchParams.append('client_secret', '64372572-870b-43e0-9aae-f080b14ddfa4');
   url.searchParams.append('redirect_uri', redirectUrl);
 
   res.redirect(307, url);
@@ -52,7 +52,7 @@ app.post('/loginImplicitGrant', (req, res) => {
   const redirectUrl = new urlModule.URL('http://localhost:5000/checkToken');
 
   url.searchParams.append('response_type', 'token');
-  url.searchParams.append('client_id', '5a6268b6-635e-44e9-bf4b-55bc8b6bb2fa');
+  url.searchParams.append('client_id', '47f9d065-e457-4b87-8ed8-a6bade87755a');
   url.searchParams.append('redirect_uri', redirectUrl);
   url.searchParams.append('state', 'REQUIRED');
 
@@ -74,12 +74,16 @@ app.post('/checkToken', (req, res) => {
     bodyParameters,
     config
   ).then(opn('http://localhost:5000/graphql')).catch(console.log);
+
+  res.json(req.query);
 });
 
 app.post('/getToken', (req, res) => {
   if (req.query.access_token) {
     opn('http://localhost:5000/graphql');
   }
+
+  res.json(req.query);
 })
 
 const PORT = 5000;
